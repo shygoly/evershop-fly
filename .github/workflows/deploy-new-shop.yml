@@ -34,6 +34,16 @@ jobs:
       - name: Setup Flyctl
         uses: superfly/flyctl-actions/setup-flyctl@master
 
+      - name: Authenticate flyctl
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p ~/.fly
+          TOK="${FLY_API_TOKEN:-${FLYCTL_ACCESS_TOKEN:-${FLY_ACCESS_TOKEN:-}}}"
+          if [ -z "$TOK" ]; then echo "::error::Missing Fly API token in secrets"; exit 1; fi
+          printf '%s' "$TOK" > ~/.fly/access_token
+          chmod 600 ~/.fly/access_token
+
       - name: Create app if not exists
         shell: bash
         run: |
@@ -44,19 +54,20 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
+          APP='${{ inputs.app_name }}'
           NODE_CONFIG_JSON=$(printf '%s' '{"shop":{"name":"'"${{ inputs.shop_name }}"'"}}')
-          flyctl secrets set \
-            DATABASE_URL='${{ secrets.DATABASE_URL }}' \
-            AWS_ACCESS_KEY_ID='${{ secrets.AWS_ACCESS_KEY_ID }}' \
-            AWS_SECRET_ACCESS_KEY='${{ secrets.AWS_SECRET_ACCESS_KEY }}' \
-            AWS_REGION='${{ secrets.AWS_REGION }}' \
-            AWS_BUCKET_NAME='${{ secrets.AWS_BUCKET_NAME }}' \
-            AWS_ENDPOINT_URL_S3='${{ secrets.AWS_ENDPOINT_URL_S3 }}' \
-            PUBLIC_ASSET_BASE_URL='${{ secrets.PUBLIC_ASSET_BASE_URL }}' \
-            NODE_CONFIG="$NODE_CONFIG_JSON" \
-            ADMIN_EMAIL='${{ inputs.admin_email }}' \
-            ADMIN_PASSWORD='${{ inputs.admin_password }}' \
-            -a "${{ inputs.app_name }}"
+          # optional shared secrets
+          [ -n "${{ secrets.DATABASE_URL }}" ] && flyctl secrets set DATABASE_URL='${{ secrets.DATABASE_URL }}' -a "$APP"
+          [ -n "${{ secrets.AWS_ACCESS_KEY_ID }}" ] && flyctl secrets set AWS_ACCESS_KEY_ID='${{ secrets.AWS_ACCESS_KEY_ID }}' -a "$APP"
+          [ -n "${{ secrets.AWS_SECRET_ACCESS_KEY }}" ] && flyctl secrets set AWS_SECRET_ACCESS_KEY='${{ secrets.AWS_SECRET_ACCESS_KEY }}' -a "$APP"
+          [ -n "${{ secrets.AWS_REGION }}" ] && flyctl secrets set AWS_REGION='${{ secrets.AWS_REGION }}' -a "$APP"
+          [ -n "${{ secrets.AWS_BUCKET_NAME }}" ] && flyctl secrets set AWS_BUCKET_NAME='${{ secrets.AWS_BUCKET_NAME }}' -a "$APP"
+          [ -n "${{ secrets.AWS_ENDPOINT_URL_S3 }}" ] && flyctl secrets set AWS_ENDPOINT_URL_S3='${{ secrets.AWS_ENDPOINT_URL_S3 }}' -a "$APP"
+          [ -n "${{ secrets.PUBLIC_ASSET_BASE_URL }}" ] && flyctl secrets set PUBLIC_ASSET_BASE_URL='${{ secrets.PUBLIC_ASSET_BASE_URL }}' -a "$APP"
+          flyctl secrets set NODE_CONFIG="$NODE_CONFIG_JSON" -a "$APP"
+          # admin secrets always
+          flyctl secrets set ADMIN_EMAIL='${{ inputs.admin_email }}' -a "$APP"
+          flyctl secrets set ADMIN_PASSWORD='${{ inputs.admin_password }}' -a "$APP"
 
       - name: Deploy to Fly.io (remote builder)
         shell: bash
