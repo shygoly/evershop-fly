@@ -1,0 +1,30 @@
+{
+  "shop": {
+    "currency": "USD",
+    "language": "en",
+    "weightUnit": "kg",
+    "timezone": "UTC"
+  },
+  "system": {
+    "database": {
+      "host": "postgres",
+      "port": 5432,
+      "database": "evershop",
+      "user": "evershop",
+      "password": "evershop123"
+    },
+    "http": {
+      "host": "0.0.0.0",
+      "port": 3000
+    },
+    "file_storage": "s3",
+    "extensions": [
+      {
+        "name": "s3_file_storage",
+        "resolve": "node_modules/@evershop/s3_file_storage",
+        "enabled": true,
+        "priority": 10
+      }
+    ]
+  }
+}
