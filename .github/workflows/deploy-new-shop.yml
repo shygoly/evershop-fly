@@ -48,7 +48,11 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          flyctl apps create "${{ inputs.app_name }}" || echo "App exists, continue"
+          APP="${{ inputs.app_name }}"
+          ORG_SLUG="${{ secrets.FLY_ORG_SLUG }}"
+          if [ -z "$ORG_SLUG" ]; then ORG_SLUG="personal"; fi
+          # Create under specified org (non-interactive requires org slug)
+          flyctl apps create "$APP" -o "$ORG_SLUG" || echo "App exists, continue"
 
       - name: Configure secrets (DB/R2 shared, shop/admin customized)
         shell: bash
