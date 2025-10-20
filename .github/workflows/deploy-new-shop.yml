@@ -130,6 +130,24 @@ jobs:
             flyctl deploy -a "$APP" --remote-only
           fi
 
+      - name: Dump Fly logs on failure
+        if: ${{ failure() }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          APP="$APP_NAME"; if [ -z "$APP" ]; then APP='${{ inputs.app_name }}'; fi
+          echo "--- Machines list ($APP) ---"
+          flyctl machines list -a "$APP" || true
+          MID=$(flyctl machines list -a "$APP" --json | node -e '
+            let d="";process.stdin.on("data",c=>d+=c);process.stdin.on("end",()=>{try{let j=JSON.parse(d);if(Array.isArray(j)&&j.length)console.log(j[0].id);else console.log("")}catch(e){console.log("")}});
+          ' || true)
+          echo "--- Recent app logs ($APP) ---"
+          flyctl logs -a "$APP" --since 30m || true
+          if [ -n "$MID" ]; then
+            echo "--- Machine $MID logs ($APP) ---"
+            flyctl machine logs -a "$APP" "$MID" --lines 400 || true
+          fi
+
       - name: Create admin user
         shell: bash
         run: |
