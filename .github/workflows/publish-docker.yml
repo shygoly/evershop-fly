@@ -1,0 +1,68 @@
+name: Build and publish Docker image
+
+on:
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: "Image tag to publish (default: latest)"
+        required: false
+        type: string
+  push:
+    branches: [ main ]
+    tags: [ 'v*.*.*' ]
+
+jobs:
+  docker:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    env:
+      REGISTRY: docker.io
+      IMAGE_NAME: ${{ secrets.DOCKERHUB_USERNAME }}/evershop-fly
+      DEFAULT_TAG: latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+      	  registry: docker.io
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Compute tags
+        id: meta
+        run: |
+          set -euo pipefail
+          TAG_INPUT='${{ inputs.tag }}'
+          TAGS=()
+          if [ -n "$TAG_INPUT" ]; then
+            TAGS+=("${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${TAG_INPUT}")
+          fi
+          # Tag by SHA always
+          TAGS+=("${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:sha-${GITHUB_SHA}")
+          # Default latest on main branch when not a tag
+          if [ "${GITHUB_REF_TYPE}" = "branch" ] && [ "${GITHUB_REF_NAME}" = "main" ]; then
+            TAGS+=("${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.DEFAULT_TAG }}")
+          fi
+          # For tag refs, also push that tag
+          if [ "${GITHUB_REF_TYPE}" = "tag" ]; then
+            TAGS+=("${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${GITHUB_REF_NAME}")
+          fi
+          printf '%s\n' "tags=$(IFS=","; echo "${TAGS[*]}")" >> "$GITHUB_OUTPUT"
+
+      - name: Build and push
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: ./Dockerfile
+          push: true
+          platforms: linux/amd64
+          tags: ${{ steps.meta.outputs.tags }}

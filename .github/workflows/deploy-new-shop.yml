@@ -19,6 +19,10 @@ on:
         description: "Admin password (stored as secret on the app)"
         required: true
         type: string
+      image:
+        description: "Optional Docker image to deploy (e.g. docker.io/<user>/evershop-fly:latest). If set, build is skipped and this image is used."
+        required: false
+        type: string
 
 jobs:
   deploy:
@@ -73,11 +77,19 @@ jobs:
           flyctl secrets set ADMIN_EMAIL='${{ inputs.admin_email }}' -a "$APP"
           flyctl secrets set ADMIN_PASSWORD='${{ inputs.admin_password }}' -a "$APP"
 
-      - name: Deploy to Fly.io (remote builder)
+      - name: Deploy to Fly.io (prebuilt image if provided)
         shell: bash
         run: |
           set -euo pipefail
-          flyctl deploy -a "${{ inputs.app_name }}" --remote-only
+          APP="${{ inputs.app_name }}"
+          IMG="${{ inputs.image }}"
+          if [ -n "$IMG" ]; then
+            echo "Using prebuilt image: $IMG"
+            flyctl deploy -a "$APP" -i "$IMG"
+          else
+            echo "No image provided, building with remote builder"
+            flyctl deploy -a "$APP" --remote-only
+          fi
 
       - name: Create admin user
         shell: bash
