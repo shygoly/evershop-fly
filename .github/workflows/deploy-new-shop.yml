@@ -141,11 +141,11 @@ jobs:
           MID=$(flyctl machines list -a "$APP" --json | node -e '
             let d="";process.stdin.on("data",c=>d+=c);process.stdin.on("end",()=>{try{let j=JSON.parse(d);if(Array.isArray(j)&&j.length)console.log(j[0].id);else console.log("")}catch(e){console.log("")}});
           ' || true)
-          echo "--- Recent app logs ($APP) ---"
-          flyctl logs -a "$APP" --since 30m || true
+          echo "--- Recent app logs ($APP) (last 300 lines) ---"
+          flyctl logs -a "$APP" -n 300 || true
           if [ -n "$MID" ]; then
-            echo "--- Machine $MID logs ($APP) ---"
-            flyctl machine logs -a "$APP" "$MID" --lines 400 || true
+            echo "--- Machine $MID logs ($APP) (last 400 lines) ---"
+            flyctl logs -a "$APP" --machine "$MID" -n 400 || true
           fi
 
       - name: Create admin user
