@@ -161,7 +161,7 @@ jobs:
           APP="$APP_NAME"; if [ -z "$APP" ]; then APP='${{ inputs.app_name }}'; fi
           # Try official CLI if present, fallback to node cli.js path
           ADMIN_NAME="${{ inputs.shop_name }} Owner"
-          flyctl ssh console -a "$APP" -C "sh -lc 'set -e; NAME=\"${ADMIN_NAME}\"; if command -v evershop >/dev/null 2>&1; then evershop user:create --name \"$NAME\" --email \"${{ inputs.admin_email }}\" --password \"${{ inputs.admin_password }}\" --role admin; else node /app/node_modules/@evershop/evershop/bin/evershop user:create --name \"$NAME\" --email \"${{ inputs.admin_email }}\" --password \"${{ inputs.admin_password }}\" --role admin; fi'"
+          flyctl ssh console -a "$APP" -C "sh -lc 'set -e; NAME=\"${ADMIN_NAME}\"; if command -v evershop >/dev/null 2>&1; then evershop user:create --name \"\$NAME\" --email \"${{ inputs.admin_email }}\" --password \"${{ inputs.admin_password }}\" --role admin; else node /app/node_modules/@evershop/evershop/bin/evershop user:create --name \"\$NAME\" --email \"${{ inputs.admin_email }}\" --password \"${{ inputs.admin_password }}\" --role admin; fi'"
 
       - name: Output
         run: |
