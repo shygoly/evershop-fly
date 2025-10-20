@@ -56,7 +56,8 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          APP="${{ inputs.app_name }}"
+          APP_IN="${{ inputs.app_name }}"
+          APP="$APP_IN"
           ORG_SLUG_INPUT="${{ inputs.org_slug }}"
           ORG_SLUG_SECRET="${{ secrets.FLY_ORG_SLUG }}"
           ORG_SLUG="$ORG_SLUG_INPUT"
@@ -73,14 +74,33 @@ jobs:
             exit 1
           fi
           echo "Using Fly org: $ORG_SLUG"
-          # Create under specified org (non-interactive requires org slug)
-          flyctl apps create "$APP" -o "$ORG_SLUG" || echo "App exists or creation skipped"
+
+          # Try create; if name taken globally, auto-suffix and retry
+          set +e
+          CREATE_OUT=$(flyctl apps create "$APP" -o "$ORG_SLUG" 2>&1)
+          CREATE_CODE=$?
+          set -e
+          if [ $CREATE_CODE -ne 0 ]; then
+            echo "$CREATE_OUT"
+            if echo "$CREATE_OUT" | grep -qi "Name has already been taken"; then
+              SUF=$(openssl rand -hex 3 | head -c 6)
+              APP="${APP_IN}-${SUF}"
+              echo "App name taken. Retrying with: $APP"
+              flyctl apps create "$APP" -o "$ORG_SLUG"
+            else
+              echo "::error::Failed to create app"
+              exit 1
+            fi
+          fi
+          echo "APP_NAME=$APP" >> "$GITHUB_ENV"
+          echo "App to use: $APP"
 
       - name: Configure secrets (DB/R2 shared, shop/admin customized)
         shell: bash
         run: |
           set -euo pipefail
-          APP='${{ inputs.app_name }}'
+          APP="$APP_NAME"
+          if [ -z "$APP" ]; then APP='${{ inputs.app_name }}'; fi
           NODE_CONFIG_JSON=$(printf '%s' '{"shop":{"name":"'"${{ inputs.shop_name }}"'"}}')
           # optional shared secrets
           [ -n "${{ secrets.DATABASE_URL }}" ] && flyctl secrets set DATABASE_URL='${{ secrets.DATABASE_URL }}' -a "$APP"
@@ -99,7 +119,8 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          APP="${{ inputs.app_name }}"
+          APP="$APP_NAME"
+          if [ -z "$APP" ]; then APP='${{ inputs.app_name }}'; fi
           IMG="${{ inputs.image }}"
           if [ -n "$IMG" ]; then
             echo "Using prebuilt image: $IMG"
@@ -113,10 +134,12 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
+          APP="$APP_NAME"; if [ -z "$APP" ]; then APP='${{ inputs.app_name }}'; fi
           # Try official CLI if present, fallback to node cli.js path
-          flyctl ssh console -a "${{ inputs.app_name }}" -C "bash -lc 'set -e; if command -v evershop >/dev/null 2>&1; then evershop user create --email \"${{ inputs.admin_email }}\" --password \"${{ inputs.admin_password }}\" --role admin; else node /app/node_modules/@evershop/evershop/bin/cli.js user create --email \"${{ inputs.admin_email }}\" --password \"${{ inputs.admin_password }}\" --role admin; fi'"
+          flyctl ssh console -a "$APP" -C "bash -lc 'set -e; if command -v evershop >/dev/null 2>&1; then evershop user create --email \"${{ inputs.admin_email }}\" --password \"${{ inputs.admin_password }}\" --role admin; else node /app/node_modules/@evershop/evershop/bin/cli.js user create --email \"${{ inputs.admin_email }}\" --password \"${{ inputs.admin_password }}\" --role admin; fi'"
 
       - name: Output
         run: |
-          echo "App: ${{ inputs.app_name }} deployed."
-          echo "Visit: https://${{ inputs.app_name }}.fly.dev"
+          APP="$APP_NAME"; if [ -z "$APP" ]; then APP='${{ inputs.app_name }}'; fi
+          echo "App: $APP deployed."
+          echo "Visit: https://$APP.fly.dev"
