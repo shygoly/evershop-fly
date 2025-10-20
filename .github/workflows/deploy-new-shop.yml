@@ -23,6 +23,10 @@ on:
         description: "Optional Docker image to deploy (e.g. docker.io/<user>/evershop-fly:latest). If set, build is skipped and this image is used."
         required: false
         type: string
+      org_slug:
+        description: "Fly organization slug to create the app under (overrides FLY_ORG_SLUG secret)."
+        required: false
+        type: string
 
 jobs:
   deploy:
@@ -53,10 +57,24 @@ jobs:
         run: |
           set -euo pipefail
           APP="${{ inputs.app_name }}"
-          ORG_SLUG="${{ secrets.FLY_ORG_SLUG }}"
-          if [ -z "$ORG_SLUG" ]; then ORG_SLUG="personal"; fi
+          ORG_SLUG_INPUT="${{ inputs.org_slug }}"
+          ORG_SLUG_SECRET="${{ secrets.FLY_ORG_SLUG }}"
+          ORG_SLUG="$ORG_SLUG_INPUT"
+          if [ -z "$ORG_SLUG" ]; then ORG_SLUG="$ORG_SLUG_SECRET"; fi
+          if [ -z "$ORG_SLUG" ]; then
+            echo "No org_slug input/secret; discovering first available org via flyctl orgs list"
+            ORG_SLUG=$(flyctl orgs list --json | node -e '
+              let d="";process.stdin.on("data",c=>d+=c);
+              process.stdin.on("end",()=>{try{let j=JSON.parse(d);if(Array.isArray(j)&&j.length)console.log(j[0].slug);else console.log("")}catch(e){console.log("")}});
+            ')
+          fi
+          if [ -z "$ORG_SLUG" ]; then
+            echo "::error::Could not determine Fly org slug. Set inputs.org_slug or secrets.FLY_ORG_SLUG"
+            exit 1
+          fi
+          echo "Using Fly org: $ORG_SLUG"
           # Create under specified org (non-interactive requires org slug)
-          flyctl apps create "$APP" -o "$ORG_SLUG" || echo "App exists, continue"
+          flyctl apps create "$APP" -o "$ORG_SLUG" || echo "App exists or creation skipped"
 
       - name: Configure secrets (DB/R2 shared, shop/admin customized)
         shell: bash
