@@ -110,6 +110,12 @@ jobs:
           [ -n "${{ secrets.AWS_BUCKET_NAME }}" ] && flyctl secrets set AWS_BUCKET_NAME='${{ secrets.AWS_BUCKET_NAME }}' -a "$APP"
           [ -n "${{ secrets.AWS_ENDPOINT_URL_S3 }}" ] && flyctl secrets set AWS_ENDPOINT_URL_S3='${{ secrets.AWS_ENDPOINT_URL_S3 }}' -a "$APP"
           [ -n "${{ secrets.PUBLIC_ASSET_BASE_URL }}" ] && flyctl secrets set PUBLIC_ASSET_BASE_URL='${{ secrets.PUBLIC_ASSET_BASE_URL }}' -a "$APP"
+          # Optional discrete Postgres connection details (EverShop uses them in production.json)
+          [ -n "${{ secrets.DB_HOST }}" ] && flyctl secrets set DB_HOST='${{ secrets.DB_HOST }}' -a "$APP"
+          [ -n "${{ secrets.DB_PORT }}" ] && flyctl secrets set DB_PORT='${{ secrets.DB_PORT }}' -a "$APP"
+          [ -n "${{ secrets.DB_NAME }}" ] && flyctl secrets set DB_NAME='${{ secrets.DB_NAME }}' -a "$APP"
+          [ -n "${{ secrets.DB_USER }}" ] && flyctl secrets set DB_USER='${{ secrets.DB_USER }}' -a "$APP"
+          [ -n "${{ secrets.DB_PASSWORD }}" ] && flyctl secrets set DB_PASSWORD='${{ secrets.DB_PASSWORD }}' -a "$APP"
           flyctl secrets set NODE_CONFIG="$NODE_CONFIG_JSON" -a "$APP"
           # admin secrets always
           flyctl secrets set ADMIN_EMAIL='${{ inputs.admin_email }}' -a "$APP"
@@ -141,11 +147,11 @@ jobs:
           MID=$(flyctl machines list -a "$APP" --json | node -e '
             let d="";process.stdin.on("data",c=>d+=c);process.stdin.on("end",()=>{try{let j=JSON.parse(d);if(Array.isArray(j)&&j.length)console.log(j[0].id);else console.log("")}catch(e){console.log("")}});
           ' || true)
-          echo "--- Recent app logs ($APP) (last 300 lines) ---"
-          flyctl logs -a "$APP" -n 300 || true
+          echo "--- Recent app logs ($APP) (buffered) ---"
+          flyctl logs -a "$APP" --no-tail || true
           if [ -n "$MID" ]; then
-            echo "--- Machine $MID logs ($APP) (last 400 lines) ---"
-            flyctl logs -a "$APP" --machine "$MID" -n 400 || true
+            echo "--- Machine $MID logs ($APP) (buffered) ---"
+            flyctl logs -a "$APP" --machine "$MID" --no-tail || true
           fi
 
       - name: Create admin user
