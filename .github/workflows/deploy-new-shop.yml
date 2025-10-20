@@ -103,23 +103,33 @@ jobs:
           if [ -z "$APP" ]; then APP='${{ inputs.app_name }}'; fi
           NODE_CONFIG_JSON=$(printf '%s' '{"shop":{"name":"'"${{ inputs.shop_name }}"'"}}')
           # optional shared secrets
-          [ -n "${{ secrets.DATABASE_URL }}" ] && flyctl secrets set DATABASE_URL='${{ secrets.DATABASE_URL }}' -a "$APP"
-          [ -n "${{ secrets.AWS_ACCESS_KEY_ID }}" ] && flyctl secrets set AWS_ACCESS_KEY_ID='${{ secrets.AWS_ACCESS_KEY_ID }}' -a "$APP"
-          [ -n "${{ secrets.AWS_SECRET_ACCESS_KEY }}" ] && flyctl secrets set AWS_SECRET_ACCESS_KEY='${{ secrets.AWS_SECRET_ACCESS_KEY }}' -a "$APP"
-          [ -n "${{ secrets.AWS_REGION }}" ] && flyctl secrets set AWS_REGION='${{ secrets.AWS_REGION }}' -a "$APP"
-          [ -n "${{ secrets.AWS_BUCKET_NAME }}" ] && flyctl secrets set AWS_BUCKET_NAME='${{ secrets.AWS_BUCKET_NAME }}' -a "$APP"
-          [ -n "${{ secrets.AWS_ENDPOINT_URL_S3 }}" ] && flyctl secrets set AWS_ENDPOINT_URL_S3='${{ secrets.AWS_ENDPOINT_URL_S3 }}' -a "$APP"
-          [ -n "${{ secrets.PUBLIC_ASSET_BASE_URL }}" ] && flyctl secrets set PUBLIC_ASSET_BASE_URL='${{ secrets.PUBLIC_ASSET_BASE_URL }}' -a "$APP"
-          # Optional discrete Postgres connection details (EverShop uses them in production.json)
-          [ -n "${{ secrets.DB_HOST }}" ] && flyctl secrets set DB_HOST='${{ secrets.DB_HOST }}' -a "$APP"
-          [ -n "${{ secrets.DB_PORT }}" ] && flyctl secrets set DB_PORT='${{ secrets.DB_PORT }}' -a "$APP"
-          [ -n "${{ secrets.DB_NAME }}" ] && flyctl secrets set DB_NAME='${{ secrets.DB_NAME }}' -a "$APP"
-          [ -n "${{ secrets.DB_USER }}" ] && flyctl secrets set DB_USER='${{ secrets.DB_USER }}' -a "$APP"
-          [ -n "${{ secrets.DB_PASSWORD }}" ] && flyctl secrets set DB_PASSWORD='${{ secrets.DB_PASSWORD }}' -a "$APP"
-          flyctl secrets set NODE_CONFIG="$NODE_CONFIG_JSON" -a "$APP"
-          # admin secrets always
-          flyctl secrets set ADMIN_EMAIL='${{ inputs.admin_email }}' -a "$APP"
-          flyctl secrets set ADMIN_PASSWORD='${{ inputs.admin_password }}' -a "$APP"
+          add_secret() {
+            local key="$1"; local value="$2"
+            if [ -n "$value" ]; then
+              SET_ARGS+=("$key=$value")
+            fi
+          }
+
+          declare -a SET_ARGS=()
+          add_secret "DATABASE_URL" '${{ secrets.DATABASE_URL }}'
+          add_secret "AWS_ACCESS_KEY_ID" '${{ secrets.AWS_ACCESS_KEY_ID }}'
+          add_secret "AWS_SECRET_ACCESS_KEY" '${{ secrets.AWS_SECRET_ACCESS_KEY }}'
+          add_secret "AWS_REGION" '${{ secrets.AWS_REGION }}'
+          add_secret "AWS_BUCKET_NAME" '${{ secrets.AWS_BUCKET_NAME }}'
+          add_secret "AWS_ENDPOINT_URL_S3" '${{ secrets.AWS_ENDPOINT_URL_S3 }}'
+          add_secret "PUBLIC_ASSET_BASE_URL" '${{ secrets.PUBLIC_ASSET_BASE_URL }}'
+          add_secret "DB_HOST" '${{ secrets.DB_HOST }}'
+          add_secret "DB_PORT" '${{ secrets.DB_PORT }}'
+          add_secret "DB_NAME" '${{ secrets.DB_NAME }}'
+          add_secret "DB_USER" '${{ secrets.DB_USER }}'
+          add_secret "DB_PASSWORD" '${{ secrets.DB_PASSWORD }}'
+          add_secret "NODE_CONFIG" "$NODE_CONFIG_JSON"
+          add_secret "ADMIN_EMAIL" '${{ inputs.admin_email }}'
+          add_secret "ADMIN_PASSWORD" '${{ inputs.admin_password }}'
+
+          if [ ${#SET_ARGS[@]} -gt 0 ]; then
+            flyctl secrets set "${SET_ARGS[@]}" -a "$APP"
+          fi
 
       - name: Deploy to Fly.io (prebuilt image if provided)
         shell: bash
