@@ -160,7 +160,7 @@ jobs:
           set -euo pipefail
           APP="$APP_NAME"; if [ -z "$APP" ]; then APP='${{ inputs.app_name }}'; fi
           # Try official CLI if present, fallback to node cli.js path
-          flyctl ssh console -a "$APP" -C "bash -lc 'set -e; if command -v evershop >/dev/null 2>&1; then evershop user create --email \"${{ inputs.admin_email }}\" --password \"${{ inputs.admin_password }}\" --role admin; else node /app/node_modules/@evershop/evershop/bin/cli.js user create --email \"${{ inputs.admin_email }}\" --password \"${{ inputs.admin_password }}\" --role admin; fi'"
+          flyctl ssh console -a "$APP" -C "sh -lc 'set -e; if command -v evershop >/dev/null 2>&1; then evershop user create --email \"${{ inputs.admin_email }}\" --password \"${{ inputs.admin_password }}\" --role admin; else node /app/node_modules/@evershop/evershop/bin/cli.js user create --email \"${{ inputs.admin_email }}\" --password \"${{ inputs.admin_password }}\" --role admin; fi'"
 
       - name: Output
         run: |
