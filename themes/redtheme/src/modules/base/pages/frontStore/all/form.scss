@@ -1,0 +1,93 @@
+@import '@evershop/evershop/src/modules/base/pages/frontStore/all/form.scss';
+
+@layer base {
+  .form-field {
+    input[type='text'],
+    input[type='email'],
+    input[type='password'],
+    input[type='number'],
+    input[type='search'],
+    input[type='tel'],
+    input[type='url'],
+    input[type='date'],
+    input[type='time'],
+    input[type='datetime-local'],
+    input[type='color'],
+    input[type='range'],
+    input[type='file'],
+    textarea,
+    select {
+      &:focus {
+        box-shadow: 0 0 0 5px rgba(220, 38, 38, 0.15),
+          0 0 0 2px rgb(220, 38, 38);
+      }
+
+      &.error:focus {
+        box-shadow: 0 0 0 5px rgba(248, 113, 113, 0.2),
+          0 0 0 2px rgb(248, 113, 113);
+      }
+    }
+
+    select {
+      &:focus {
+        background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%23dc2626' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3e%3c/svg%3e");
+      }
+    }
+
+    &.error {
+      select {
+        background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%23f87171' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3e%3c/svg%3e");
+
+        &:focus {
+          box-shadow: 0 0 0 3px rgba(248, 113, 113, 0.2),
+            0 0 0 1px rgb(248, 113, 113);
+        }
+      }
+
+      input[type='checkbox'],
+      input[type='radio'] {
+        @apply border-red-500;
+      }
+    }
+
+    input[type='checkbox'],
+    input[type='radio'] {
+      @apply text-red-600;
+
+      &:focus {
+        @apply border-red-500;
+      }
+    }
+
+    .react-select {
+      &__control {
+        &--is-focused {
+          @apply border-red-500;
+          box-shadow: 0 0 0 1px rgb(220, 38, 38);
+        }
+      }
+
+      &__option {
+        &--is-focused {
+          @apply bg-red-50;
+        }
+
+        &--is-selected {
+          @apply bg-red-600 text-white;
+        }
+      }
+
+      &__multi-value {
+        @apply bg-red-100;
+
+        &__label {
+          @apply text-red-800;
+        }
+
+        &__remove {
+          @apply text-red-600 hover:bg-red-500 hover:text-white;
+        }
+      }
+    }
+  }
+}

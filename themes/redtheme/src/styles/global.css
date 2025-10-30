@@ -1,0 +1,59 @@
+:root {
+  --accent-50: #fef2f2;
+  --accent-100: #fee2e2;
+  --accent-200: #fecaca;
+  --accent-300: #fca5a5;
+  --accent-400: #f87171;
+  --accent-500: #ef4444;
+  --accent-600: #dc2626;
+  --accent-700: #b91c1c;
+  --accent-800: #991b1b;
+  --accent-900: #7f1d1d;
+}
+
+a,
+button,
+.button {
+  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+
+a {
+  color: var(--accent-600);
+}
+
+a:hover {
+  color: var(--accent-700);
+}
+
+.button,
+button,
+input[type='submit'],
+input[type='button'] {
+  background-color: var(--accent-600);
+  border-color: var(--accent-600);
+  color: #fff;
+}
+
+.button:hover,
+button:hover,
+input[type='submit']:hover,
+input[type='button']:hover {
+  background-color: var(--accent-700);
+  border-color: var(--accent-700);
+}
+
+header,
+.header,
+.top-bar,
+.navigation {
+  background-color: var(--accent-800);
+  color: #fff;
+}
+
+.link-primary {
+  color: var(--accent-600);
+}
+
+.link-primary:hover {
+  color: var(--accent-700);
+}

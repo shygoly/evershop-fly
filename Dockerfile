@@ -13,6 +13,23 @@ RUN npm install @evershop/s3_file_storage global-agent
 COPY config /app/config
 COPY patches /tmp/patches
 COPY scripts /app/scripts
+COPY themes /app/themes-src
+
+RUN mkdir -p /app/themes && cp -R /app/themes-src/. /app/themes/
+RUN set -eux; \
+  for theme in /app/themes/*; do \
+    [ -d "${theme}" ] || continue; \
+    name="$(basename "${theme}")"; \
+    if [ -f "${theme}/package.json" ]; then \
+      npm install --prefix "${theme}"; \
+      npm run build --prefix "${theme}"; \
+      if [ -d "${theme}/dist" ]; then \
+        mkdir -p "/app/themes-src/${name}"; \
+        rm -rf "/app/themes-src/${name}/dist"; \
+        cp -R "${theme}/dist" "/app/themes-src/${name}/dist"; \
+      fi; \
+    fi; \
+  done
 
 # Patch S3 storage plugin to support custom S3-compatible endpoints (e.g., Cloudflare R2)
 # Replace S3 service files with patched versions that use process.env and public URLs
@@ -43,8 +60,10 @@ RUN sed -i "s/enum: \\['local'\\]/enum: ['local', 's3']/" \
 # Set memory limit for Node.js build
 ENV NODE_OPTIONS="--max-old-space-size=6144"
 
+RUN chmod +x /app/scripts/entrypoint.sh
+
 # Build the app with S3 extension integrated
 RUN npm run build
 
-# Start the app
+ENTRYPOINT ["/bin/sh", "/app/scripts/entrypoint.sh"]
 CMD ["npm", "start"]
