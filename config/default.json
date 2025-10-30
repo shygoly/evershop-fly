@@ -25,6 +25,12 @@
         "resolve": "node_modules/@evershop/s3_file_storage",
         "enabled": true,
         "priority": 10
+      },
+      {
+        "name": "chatbot",
+        "resolve": "extensions/chatbot",
+        "enabled": true,
+        "priority": 15
       }
     ]
   }

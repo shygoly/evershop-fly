@@ -1,0 +1,6 @@
+{
+  "methods": ["POST"],
+  "path": "/api/chatbot/sync",
+  "access": "private"
+}
+

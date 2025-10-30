@@ -1,0 +1,6 @@
+{
+  "methods": ["GET"],
+  "path": "/api/chatbot/status",
+  "access": "private"
+}
+

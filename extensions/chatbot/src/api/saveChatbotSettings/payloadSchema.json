@@ -1,0 +1,26 @@
+{
+  "type": "object",
+  "properties": {
+    "shop_id": {
+      "type": "string"
+    },
+    "shop_name": {
+      "type": "string"
+    },
+    "shop_logo_url": {
+      "type": "string"
+    },
+    "sync_products": {
+      "type": "boolean"
+    },
+    "sync_orders": {
+      "type": "boolean"
+    },
+    "sync_customers": {
+      "type": "boolean"
+    }
+  },
+  "required": ["shop_id"],
+  "additionalProperties": true
+}
+

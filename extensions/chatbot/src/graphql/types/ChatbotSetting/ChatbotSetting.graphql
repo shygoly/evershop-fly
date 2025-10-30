@@ -1,0 +1,57 @@
+type ChatbotSetting {
+  settingId: Int
+  uuid: String
+  shopId: String!
+  shopName: String
+  shopLogoUrl: String
+  botId: String
+  syncProducts: Boolean
+  syncOrders: Boolean
+  syncCustomers: Boolean
+  backendApiUrl: String
+  tenantId: Int
+  lastSyncProducts: String
+  lastSyncOrders: String
+  lastSyncCustomers: String
+  createdAt: String
+  updatedAt: String
+}
+
+type ChatbotSyncInfo {
+  productCount: Int
+  productDate: String
+  orderCount: Int
+  orderDate: String
+  customerCount: Int
+  customerDate: String
+}
+
+type ChatbotStats {
+  todayCount: Int
+  increasePer: Int
+}
+
+type ChatbotStatus {
+  setting: ChatbotSetting
+  syncInfo: ChatbotSyncInfo
+  chatStats: ChatbotStats
+}
+
+extend type Query {
+  chatbotSetting(shopId: String!): ChatbotSetting
+  chatbotStatus(shopId: String!): ChatbotStatus
+}
+
+extend type Mutation {
+  saveChatbotSetting(
+    shopId: String!
+    shopName: String
+    shopLogoUrl: String
+    syncProducts: Boolean
+    syncOrders: Boolean
+    syncCustomers: Boolean
+  ): ChatbotSetting
+
+  syncChatbotData(shopId: String!, syncType: String!): Boolean
+}
+

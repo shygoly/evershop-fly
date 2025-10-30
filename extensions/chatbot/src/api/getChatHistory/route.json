@@ -1,0 +1,6 @@
+{
+  "methods": ["GET"],
+  "path": "/api/chatbot/chat/history",
+  "access": "public"
+}
+

@@ -1,0 +1,25 @@
+{
+  "chatbot": {
+    "enabled": true,
+    "backendApiUrl": "http://localhost:48080",
+    "defaultTenantId": 1,
+    "defaultShopId": "evershop-default",
+    "syncSchedule": {
+      "enabled": false,
+      "products": "0 0 * * *",
+      "orders": "0 */6 * * *",
+      "customers": "0 */12 * * *"
+    },
+    "sync": {
+      "batchSize": 100,
+      "maxRetries": 3,
+      "retryDelay": 1000
+    },
+    "bot": {
+      "defaultPrompt": "你是一名专业的客服，负责解答客户问题...",
+      "language": "zh-CN",
+      "autoReply": true
+    }
+  }
+}
+

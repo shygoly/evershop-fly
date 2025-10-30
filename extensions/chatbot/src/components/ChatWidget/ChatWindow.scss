@@ -1,0 +1,127 @@
+.chat-window {
+  position: fixed;
+  bottom: 100px;
+  right: 20px;
+  width: 380px;
+  height: 600px;
+  max-height: calc(100vh - 120px);
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  display: flex;
+  flex-direction: column;
+  z-index: 9998;
+  animation: slideUp 0.3s ease-out;
+
+  .chat-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px;
+    background: #e53e3e;
+    color: white;
+    border-radius: 16px 16px 0 0;
+    flex-shrink: 0;
+
+    .header-info {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+
+      .bot-logo {
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        object-fit: cover;
+      }
+
+      .bot-name {
+        font-size: 16px;
+        font-weight: 600;
+      }
+    }
+
+    .close-button {
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: transparent;
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      transition: background 0.2s;
+
+      &:hover {
+        background: rgba(255, 255, 255, 0.2);
+      }
+
+      .close-icon {
+        width: 20px;
+        height: 20px;
+        color: white;
+      }
+    }
+  }
+
+  .chat-body {
+    flex: 1;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    background: white;
+
+    .typing-container {
+      padding: 0 16px 12px;
+    }
+  }
+
+  .chat-footer {
+    flex-shrink: 0;
+    background: white;
+    border-radius: 0 0 16px 16px;
+  }
+
+  @media (max-width: 768px) and (min-width: 481px) {
+    width: 90%;
+    height: 70vh;
+    bottom: 80px;
+    right: 5%;
+    border-radius: 12px;
+
+    .chat-header {
+      border-radius: 12px 12px 0 0;
+    }
+
+    .chat-footer {
+      border-radius: 0 0 12px 12px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    width: 100%;
+    height: 100%;
+    max-height: 100%;
+    bottom: 0;
+    right: 0;
+    border-radius: 0;
+
+    .chat-header,
+    .chat-footer {
+      border-radius: 0;
+    }
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+

@@ -1,0 +1,41 @@
+{
+  "name": "@evershop/chatbot",
+  "version": "1.0.0",
+  "description": "EverShop Chatbot extension for AI customer service",
+  "type": "module",
+  "main": "src/bootstrap.ts",
+  "scripts": {
+    "build": "tsc",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
+    "test:e2e": "playwright test",
+    "test:e2e:ui": "playwright test --ui",
+    "test:e2e:headed": "playwright test --headed"
+  },
+  "keywords": [
+    "evershop",
+    "chatbot",
+    "ai",
+    "customer-service"
+  ],
+  "author": "EverShop",
+  "license": "GPL-3.0",
+  "dependencies": {
+    "axios": "^1.7.7",
+    "jsonwebtoken": "^9.0.2"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.48.0",
+    "@testing-library/jest-dom": "^6.1.0",
+    "@testing-library/react": "^14.0.0",
+    "@types/jest": "^29.5.0",
+    "@types/jsonwebtoken": "^9.0.6",
+    "@types/node": "^22.14.1",
+    "jest": "^29.5.0",
+    "jest-environment-jsdom": "^29.5.0",
+    "ts-jest": "^29.1.0",
+    "typescript": "^5.8.3"
+  }
+}
+
