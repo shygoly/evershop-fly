@@ -128,6 +128,7 @@ jobs:
           add_secret "AWS_BUCKET_NAME" '${{ secrets.AWS_BUCKET_NAME }}'
           add_secret "AWS_ENDPOINT_URL_S3" '${{ secrets.AWS_ENDPOINT_URL_S3 }}'
           add_secret "PUBLIC_ASSET_BASE_URL" '${{ secrets.PUBLIC_ASSET_BASE_URL }}'
+          add_secret "S3_FORCE_PATH_STYLE" "true"
           add_secret "DB_HOST" '${{ secrets.DB_HOST }}'
           add_secret "DB_PORT" '${{ secrets.DB_PORT }}'
           add_secret "DB_NAME" '${{ secrets.DB_NAME }}'
