@@ -1,0 +1,24 @@
+<svg width="800" height="800" viewBox="0 0 800 800" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="800" height="800" rx="72" fill="url(#bg)"/>
+  <g filter="url(#shadow)">
+    <rect x="260" y="120" width="280" height="560" rx="72" fill="#F9FCFB"/>
+    <rect x="310" y="80" width="180" height="120" rx="40" fill="#0F937B"/>
+    <rect x="340" y="60" width="120" height="40" rx="20" fill="#0B5D7A"/>
+    <rect x="295" y="240" width="210" height="300" rx="32" fill="#DFF6F0"/>
+    <rect x="335" y="280" width="130" height="140" rx="18" fill="#0F937B" opacity="0.1"/>
+    <circle cx="400" cy="430" r="64" fill="#0F937B" opacity="0.18"/>
+    <rect x="295" y="580" width="210" height="40" rx="20" fill="#0F937B" opacity="0.18"/>
+  </g>
+  <text x="400" y="640" text-anchor="middle" font-family="'Inter', 'Helvetica Neue', Arial" font-size="42" fill="#0B3C54" font-weight="600">Bio-Enzyme</text>
+  <text x="400" y="685" text-anchor="middle" font-family="'Inter', 'Helvetica Neue', Arial" font-size="28" fill="#1B718F">Cleaning Agent</text>
+  <defs>
+    <linearGradient id="bg" x1="120" y1="60" x2="680" y2="760" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#0B5D7A"/>
+      <stop offset="0.45" stop-color="#146A88"/>
+      <stop offset="1" stop-color="#25C4A6"/>
+    </linearGradient>
+    <filter id="shadow" x="200" y="40" width="400" height="640" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feDropShadow dx="0" dy="24" stdDeviation="32" flood-color="#0B3C54" flood-opacity="0.22"/>
+    </filter>
+  </defs>
+</svg>

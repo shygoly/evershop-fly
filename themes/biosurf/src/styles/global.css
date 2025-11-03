@@ -1,0 +1,59 @@
+:root {
+  --accent-50: #e8f5fa;
+  --accent-100: #d6edf6;
+  --accent-200: #a9dde9;
+  --accent-300: #7fd2e4;
+  --accent-400: #45bcd6;
+  --accent-500: #2fa0bb;
+  --accent-600: #1b85a0;
+  --accent-700: #166b86;
+  --accent-800: #11536a;
+  --accent-900: #0c3b4c;
+  --accent-950: #082737;
+}
+
+a,
+button,
+.button {
+  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+
+a,
+.link-primary {
+  color: var(--accent-600);
+  transition: color 0.2s ease;
+}
+
+a:hover,
+.link-primary:hover {
+  color: var(--accent-700);
+}
+
+.button,
+button,
+input[type='submit'],
+input[type='button'] {
+  background: linear-gradient(135deg, var(--accent-600), var(--accent-500));
+  border-color: transparent;
+  color: #fff;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 10px 20px rgba(31, 148, 160, 0.2);
+}
+
+.button:hover,
+button:hover,
+input[type='submit']:hover,
+input[type='button']:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 14px 24px rgba(17, 83, 106, 0.18);
+  background: linear-gradient(135deg, var(--accent-700), var(--accent-600));
+}
+
+header,
+.header,
+.top-bar,
+.navigation {
+  background: rgba(12, 59, 76, 0.9);
+  backdrop-filter: blur(8px);
+  color: #fff;
+}

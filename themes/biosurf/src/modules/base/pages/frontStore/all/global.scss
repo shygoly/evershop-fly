@@ -1,0 +1,178 @@
+:root {
+  --primary: #0f3b62;
+  --secondary: #146a88;
+  --surface: #0f3b62;
+  --onSurface: #0f3b62;
+  --interactive: #0f937b;
+  --critical: #c9515a;
+  --warning: #f6b400;
+  --highlight: #7cf0ff;
+  --success: #3cf0c5;
+  --decorative: #e6f7ff;
+  --border: #d3e6f0;
+  --background: #f3f8fb;
+  --icon: #0f3b62;
+  --textSubdued: #4a6a7a;
+  --divider: #dfe8ee;
+  --text: #123a4d;
+  --page-bg: #f5fafc;
+  --text-primary: #123a4d;
+  --text-muted: #4a6a7a;
+  --card-border: #d0e2eb;
+  --formFieldBorder: #b3d7e5;
+  --formFieldBorderShadow: #7fd2e4;
+}
+
+$font-size-sm: 0.875rem;
+$font-size-md: 0.875rem;
+$font-size-lg: 1rem;
+
+$line-height-sm: 1.25;
+$line-height-md: 1.5;
+$line-height-lg: 2;
+
+$font-size-base: $font-size-sm;
+$h1-font-size: $font-size-base * 2.1;
+$h2-font-size: $font-size-base * 1.9;
+$h3-font-size: $font-size-base * 1.65;
+$h4-font-size: $font-size-base * 1.45;
+$h5-font-size: $font-size-base * 1.15;
+$h6-font-size: $font-size-base;
+
+html {
+  font-size: 100%;
+
+  input[type='email'],
+  input[type='password'],
+  input[type='tel'],
+  input[type='text'],
+  select,
+  textarea {
+    padding: 0.625rem 0.75rem;
+    border-radius: 0.875rem;
+  }
+
+  .button {
+    padding: 0.75rem 1.75rem;
+    font-weight: 500;
+    border-radius: 999px;
+    letter-spacing: 0.01em;
+  }
+}
+body {
+  color: var(--text);
+  background: var(--background);
+  font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+}
+p {
+  margin-bottom: 0.75rem;
+}
+@media screen and (max-width: 767px) {
+  $font-size-base: $font-size-sm;
+  body {
+    font-size: $font-size-base;
+    line-height: $line-height-sm;
+    .h1,
+    h1 {
+      font-size: $h1-font-size;
+    }
+    .h2,
+    h2 {
+      font-size: $h2-font-size;
+    }
+    .h3,
+    h3 {
+      font-size: $h3-font-size;
+    }
+    .h4,
+    h4 {
+      font-size: $h4-font-size;
+    }
+    .h5,
+    h5 {
+      font-size: $h5-font-size;
+    }
+    .h6,
+    h6 {
+      font-size: $h6-font-size;
+    }
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1535px) {
+  $font-size-base: $font-size-md;
+  $h1-font-size: $font-size-base * 2.1;
+  $h2-font-size: $font-size-base * 1.9;
+  $h3-font-size: $font-size-base * 1.65;
+  $h4-font-size: $font-size-base * 1.45;
+  $h5-font-size: $font-size-base * 1.15;
+  $h6-font-size: $font-size-base;
+
+  body {
+    font-size: $font-size-base;
+    line-height: $line-height-md;
+    .h1,
+    h1 {
+      font-size: $h1-font-size;
+    }
+    .h2,
+    h2 {
+      font-size: $h2-font-size;
+    }
+    .h3,
+    h3 {
+      font-size: $h3-font-size;
+    }
+    .h4,
+    h4 {
+      font-size: $h4-font-size;
+    }
+    .h5,
+    h5 {
+      font-size: $h5-font-size;
+    }
+    .h6,
+    h6 {
+      font-size: $h6-font-size;
+    }
+  }
+}
+
+@media (min-width: 1536px) {
+  $font-size-base: $font-size-lg;
+  $h1-font-size: $font-size-base * 2.1;
+  $h2-font-size: $font-size-base * 1.9;
+  $h3-font-size: $font-size-base * 1.65;
+  $h4-font-size: $font-size-base * 1.45;
+  $h5-font-size: $font-size-base * 1.15;
+  $h6-font-size: $font-size-base;
+
+  body {
+    font-size: $font-size-base;
+    line-height: $line-height-lg;
+    .h1,
+    h1 {
+      font-size: $h1-font-size;
+    }
+    .h2,
+    h2 {
+      font-size: $h2-font-size;
+    }
+    .h3,
+    h3 {
+      font-size: $h3-font-size;
+    }
+    .h4,
+    h4 {
+      font-size: $h4-font-size;
+    }
+    .h5,
+    h5 {
+      font-size: $h5-font-size;
+    }
+    .h6,
+    h6 {
+      font-size: $h6-font-size;
+    }
+  }
+}

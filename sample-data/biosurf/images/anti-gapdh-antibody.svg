@@ -1,0 +1,24 @@
+<svg width="800" height="800" viewBox="0 0 800 800" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="800" height="800" rx="72" fill="url(#bg)"/>
+  <g filter="url(#shadow)">
+    <rect x="300" y="160" width="200" height="420" rx="36" fill="#FFFFFF"/>
+    <rect x="280" y="120" width="240" height="80" rx="28" fill="#2B7CDA"/>
+    <rect x="315" y="100" width="170" height="40" rx="18" fill="#1B66C0"/>
+    <rect x="310" y="240" width="180" height="160" rx="26" fill="#E8F1FF"/>
+    <circle cx="400" cy="320" r="58" fill="#1B66C0" opacity="0.2"/>
+    <rect x="310" y="430" width="180" height="100" rx="26" fill="#F5FAFF"/>
+    <rect x="330" y="570" width="140" height="30" rx="15" fill="#2B7CDA" opacity="0.3"/>
+  </g>
+  <text x="400" y="640" text-anchor="middle" font-family="'Inter', 'Helvetica Neue', Arial" font-size="40" fill="#0B2E5A" font-weight="600">Anti-GAPDH</text>
+  <text x="400" y="684" text-anchor="middle" font-family="'Inter', 'Helvetica Neue', Arial" font-size="28" fill="#1554A2">Antibody</text>
+  <defs>
+    <linearGradient id="bg" x1="100" y1="100" x2="720" y2="720" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#F2F7FF"/>
+      <stop offset="0.5" stop-color="#D7E7FF"/>
+      <stop offset="1" stop-color="#8AC1FF"/>
+    </linearGradient>
+    <filter id="shadow" x="240" y="80" width="320" height="560" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feDropShadow dx="0" dy="20" stdDeviation="28" flood-color="#0B2E5A" flood-opacity="0.2"/>
+    </filter>
+  </defs>
+</svg>

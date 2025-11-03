@@ -1,0 +1,102 @@
+@import '@evershop/evershop/src/modules/base/pages/frontStore/all/form.scss';
+
+@layer base {
+  .form-field {
+    input[type='text'],
+    input[type='email'],
+    input[type='password'],
+    input[type='number'],
+    input[type='search'],
+    input[type='tel'],
+    input[type='url'],
+    input[type='date'],
+    input[type='time'],
+    input[type='datetime-local'],
+    input[type='color'],
+    input[type='range'],
+    input[type='file'],
+    textarea,
+    select {
+      &:focus {
+        box-shadow: 0 0 0 5px rgba(20, 106, 136, 0.12),
+          0 0 0 2px rgb(20, 106, 136);
+      }
+
+      &.error:focus {
+        box-shadow: 0 0 0 5px rgba(201, 81, 90, 0.18),
+          0 0 0 2px rgb(201, 81, 90);
+      }
+    }
+
+    select {
+      &:focus {
+        background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%23146a88' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3e%3c/svg%3e");
+      }
+    }
+
+    &.error {
+      select {
+        background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%23c9515a' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3e%3c/svg%3e");
+
+        &:focus {
+          box-shadow: 0 0 0 3px rgba(201, 81, 90, 0.15),
+            0 0 0 1px rgb(201, 81, 90);
+        }
+      }
+
+      input[type='checkbox'],
+      input[type='radio'] {
+        border-color: #c9515a;
+      }
+    }
+
+    input[type='checkbox'],
+    input[type='radio'] {
+      color: #146a88;
+      accent-color: #146a88;
+
+      &:focus {
+        border-color: #146a88;
+        box-shadow: 0 0 0 2px rgba(20, 106, 136, 0.2);
+      }
+    }
+
+    .react-select {
+      &__control {
+        &--is-focused {
+          border-color: #146a88;
+          box-shadow: 0 0 0 1px rgba(20, 106, 136, 0.35);
+        }
+      }
+
+      &__option {
+        &--is-focused {
+          background-color: #e8f5fa;
+          color: #0f3b62;
+        }
+
+        &--is-selected {
+          background-color: #146a88;
+          color: #ffffff;
+        }
+      }
+
+      &__multi-value {
+        background-color: #d6edf6;
+
+        &__label {
+          color: #0f3b62;
+        }
+
+        &__remove {
+          color: #146a88;
+
+          &:hover {
+            background-color: #0f937b;
+            color: #ffffff;
+          }
+        }
+      }
+    }
+  }
+}
