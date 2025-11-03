@@ -1,0 +1,23 @@
+<svg width="800" height="800" viewBox="0 0 800 800" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="800" height="800" rx="72" fill="url(#bg)"/>
+  <g filter="url(#shadow)">
+    <rect x="260" y="200" width="280" height="420" rx="72" fill="#FFFFFF"/>
+    <rect x="290" y="170" width="220" height="80" rx="28" fill="#F27E5B"/>
+    <rect x="310" y="150" width="180" height="40" rx="18" fill="#D65C39"/>
+    <rect x="285" y="270" width="230" height="200" rx="36" fill="#FDE4DC"/>
+    <circle cx="400" cy="360" r="60" fill="#D65C39" opacity="0.18"/>
+    <rect x="300" y="510" width="200" height="34" rx="17" fill="#F27E5B" opacity="0.32"/>
+  </g>
+  <text x="400" y="640" text-anchor="middle" font-family="'Inter', 'Helvetica Neue', Arial" font-size="42" fill="#5C1F12" font-weight="600">BSA</text>
+  <text x="400" y="684" text-anchor="middle" font-family="'Inter', 'Helvetica Neue', Arial" font-size="28" fill="#8E301B">Bovine Serum</text>
+  <defs>
+    <linearGradient id="bg" x1="120" y1="80" x2="720" y2="720" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFF2EC"/>
+      <stop offset="0.55" stop-color="#FFD2BF"/>
+      <stop offset="1" stop-color="#F27E5B"/>
+    </linearGradient>
+    <filter id="shadow" x="200" y="100" width="400" height="540" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feDropShadow dx="0" dy="24" stdDeviation="28" flood-color="#5C1F12" flood-opacity="0.2"/>
+    </filter>
+  </defs>
+</svg>

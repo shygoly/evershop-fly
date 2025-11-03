@@ -1,0 +1,24 @@
+<svg width="800" height="800" viewBox="0 0 800 800" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="800" height="800" rx="72" fill="url(#bg)"/>
+  <g filter="url(#shadow)">
+    <rect x="200" y="220" width="400" height="360" rx="80" fill="#FFFFFF"/>
+    <rect x="240" y="180" width="320" height="80" rx="28" fill="#66C7A7"/>
+    <rect x="280" y="160" width="240" height="40" rx="18" fill="#3EB28E"/>
+    <rect x="230" y="260" width="340" height="220" rx="60" fill="#E5F7F0"/>
+    <circle cx="320" cy="360" r="70" fill="#3EB28E" opacity="0.2"/>
+    <circle cx="480" cy="360" r="70" fill="#3EB28E" opacity="0.18"/>
+    <rect x="280" y="520" width="240" height="34" rx="17" fill="#66C7A7" opacity="0.32"/>
+  </g>
+  <text x="400" y="640" text-anchor="middle" font-family="'Inter', 'Helvetica Neue', Arial" font-size="36" fill="#11583F" font-weight="600">Human Epidermal</text>
+  <text x="400" y="684" text-anchor="middle" font-family="'Inter', 'Helvetica Neue', Arial" font-size="26" fill="#1F8B66">Keratinocytes</text>
+  <defs>
+    <linearGradient id="bg" x1="100" y1="80" x2="720" y2="720" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#E4F8F1"/>
+      <stop offset="0.5" stop-color="#BEECDC"/>
+      <stop offset="1" stop-color="#66C7A7"/>
+    </linearGradient>
+    <filter id="shadow" x="140" y="120" width="520" height="520" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feDropShadow dx="0" dy="24" stdDeviation="28" flood-color="#11583F" flood-opacity="0.2"/>
+    </filter>
+  </defs>
+</svg>

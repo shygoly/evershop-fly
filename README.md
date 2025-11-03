@@ -47,9 +47,17 @@ evershop-fly/
 ├── config/
 │   ├── default.json       # EverShop 默认配置
 │   └── production.json    # 生产环境配置
+├── sample-data/
+│   └── biosurf/           # BioSurf 主题示例产品数据与 SVG 图片
 ├── S3_STORAGE_SETUP.md    # S3 存储详细配置指南
 └── README.md              # 本文件
 ```
+
+## BioSurf 主题与示例数据
+
+- 新增 **BioSurf** 主题（`themes/biosurf`），基于医疗级配色与 AI 实验助手设计稿定制首页区块、全局色板与表单样式。部署后默认启用。
+- `sample-data/biosurf/products.json` 与 `sample-data/biosurf/images/` 提供后台可导入的产品示例，涵盖清洁剂、科研试剂、细胞材料等，与主题视觉一致。
+- 登录后台 (`/admin`) 创建产品时，可直接上传 `images/` 内的 SVG 作为示例图，或根据 README 中的说明使用 GraphQL API 批量导入。
 
 ## 配置说明
 

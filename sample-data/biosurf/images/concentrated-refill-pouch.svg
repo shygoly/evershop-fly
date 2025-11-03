@@ -1,0 +1,21 @@
+<svg width="800" height="800" viewBox="0 0 800 800" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="800" height="800" rx="72" fill="url(#bg)"/>
+  <g filter="url(#shadow)">
+    <path d="M280 180C280 160 296 144 316 144H484C504 144 520 160 520 180V560C520 600 488 632 448 632H352C312 632 280 600 280 560V180Z" fill="#FDF0DE"/>
+    <path d="M320 160C320 152 326 146 334 146H466C474 146 480 152 480 160V260H320V160Z" fill="#F4BB7B"/>
+    <rect x="320" y="260" width="160" height="180" rx="28" fill="#F9D5A8"/>
+    <rect x="320" y="460" width="160" height="100" rx="28" fill="#FBE5C6"/>
+    <rect x="340" y="590" width="120" height="28" rx="14" fill="#F4BB7B" opacity="0.32"/>
+  </g>
+  <text x="400" y="660" text-anchor="middle" font-family="'Inter', 'Helvetica Neue', Arial" font-size="34" fill="#7C3F10" font-weight="600">Concentrated Refill Pouch</text>
+  <defs>
+    <linearGradient id="bg" x1="120" y1="80" x2="720" y2="720" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFF4E5"/>
+      <stop offset="0.5" stop-color="#FFE1B5"/>
+      <stop offset="1" stop-color="#F4BB7B"/>
+    </linearGradient>
+    <filter id="shadow" x="240" y="120" width="360" height="560" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feDropShadow dx="0" dy="26" stdDeviation="28" flood-color="#7C3F10" flood-opacity="0.18"/>
+    </filter>
+  </defs>
+</svg>

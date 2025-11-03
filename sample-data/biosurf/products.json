@@ -1,0 +1,172 @@
+[
+  {
+    "name": "Bio-Enzyme Cleaning Agent",
+    "slug": "bio-enzyme-cleaning-agent",
+    "sku": "BIO-ENZ-001",
+    "price": 29.99,
+    "status": "published",
+    "shortDescription": "Advanced bio-film remover for medical surfaces. Neutral pH with enzyme complex.",
+    "image": "images/bio-enzyme-cleaning-agent.svg",
+    "tags": ["Surface Care", "Medical"]
+  },
+  {
+    "name": "Bio-Active Serum",
+    "slug": "bio-active-serum",
+    "sku": "DERM-SER-002",
+    "price": 59.99,
+    "status": "published",
+    "shortDescription": "Deep regenerative serum with peptide complex for clinical skincare routines.",
+    "image": "images/bio-active-serum.svg",
+    "tags": ["Clinical Skincare", "Serum"]
+  },
+  {
+    "name": "Cellular Renewal Cream",
+    "slug": "cellular-renewal-cream",
+    "sku": "DERM-CRM-003",
+    "price": 42,
+    "status": "published",
+    "shortDescription": "Nightly repair cream strengthening the skin barrier for sensitive patients.",
+    "image": "images/cellular-renewal-cream.svg",
+    "tags": ["Clinical Skincare", "Moisturizer"]
+  },
+  {
+    "name": "Hydro-Boosting Cleanser",
+    "slug": "hydro-boosting-cleanser",
+    "sku": "DERM-CLS-004",
+    "price": 24.99,
+    "status": "published",
+    "shortDescription": "Amino acid cleanser with low-foam formula suitable for pre-procedure prep.",
+    "image": "images/hydro-boosting-cleanser.svg",
+    "tags": ["Clinical Skincare", "Cleanser"]
+  },
+  {
+    "name": "Bio-Active Laundry Detergent",
+    "slug": "bio-active-laundry-detergent",
+    "sku": "CARE-LAU-005",
+    "price": 18.5,
+    "status": "published",
+    "shortDescription": "Enzymatic detergent designed for reusable lab textiles and patient linens.",
+    "image": "images/bio-active-laundry-detergent.svg",
+    "tags": ["Facility Care"]
+  },
+  {
+    "name": "All-Purpose Surface Spray",
+    "slug": "all-purpose-surface-spray",
+    "sku": "CARE-SPR-006",
+    "price": 22.5,
+    "status": "published",
+    "shortDescription": "Ready-to-use disinfectant for benchtops and shared instrumentation.",
+    "image": "images/all-purpose-surface-spray.svg",
+    "tags": ["Facility Care"]
+  },
+  {
+    "name": "Natural Glass Cleaner",
+    "slug": "natural-glass-cleaner",
+    "sku": "CARE-GLS-007",
+    "price": 19,
+    "status": "published",
+    "shortDescription": "Streak-free formula suitable for biosafety cabinets and cleanroom windows.",
+    "image": "images/natural-glass-cleaner.svg",
+    "tags": ["Facility Care"]
+  },
+  {
+    "name": "Concentrated Refill Pouch",
+    "slug": "concentrated-refill-pouch",
+    "sku": "CARE-REF-008",
+    "price": 34,
+    "status": "published",
+    "shortDescription": "Zero-waste refill compatible with BioSurf cleaning concentrates.",
+    "image": "images/concentrated-refill-pouch.svg",
+    "tags": ["Sustainability"]
+  },
+  {
+    "name": "Anti-GAPDH Antibody",
+    "slug": "anti-gapdh-antibody",
+    "sku": "LAB-ANT-009",
+    "price": 129,
+    "status": "published",
+    "shortDescription": "Validated antibody for human cell lysates with minimal cross reactivity.",
+    "image": "images/anti-gapdh-antibody.svg",
+    "tags": ["Research", "Antibody"]
+  },
+  {
+    "name": "PCR Master Mix (High-Reliability)",
+    "slug": "pcr-master-mix-high-reliability",
+    "sku": "LAB-PCR-010",
+    "price": 85,
+    "status": "published",
+    "shortDescription": "Room-temperature stable PCR master mix optimized for diagnostic throughput.",
+    "image": "images/pcr-master-mix.svg",
+    "tags": ["Research", "PCR"]
+  },
+  {
+    "name": "Human IL-6 ELISA Kit",
+    "slug": "human-il6-elisa-kit",
+    "sku": "LAB-ELI-011",
+    "price": 150,
+    "status": "published",
+    "shortDescription": "Clinical-grade ELISA kit with 0.8 pg/mL sensitivity and 96-well plate.",
+    "image": "images/human-il6-elisa-kit.svg",
+    "tags": ["Research", "Diagnostics"]
+  },
+  {
+    "name": "BSA (Bovine Serum)",
+    "slug": "bsa-bovine-serum",
+    "sku": "LAB-PRO-012",
+    "price": 65,
+    "status": "published",
+    "shortDescription": "≥98% purity, low endotoxin grade bovine serum albumin for protein work.",
+    "image": "images/bsa-bovine-serum.svg",
+    "tags": ["Research", "Protein"]
+  },
+  {
+    "name": "DMEM High Glucose",
+    "slug": "dmem-high-glucose",
+    "sku": "LAB-MED-013",
+    "price": 48,
+    "status": "published",
+    "shortDescription": "High-glucose DMEM medium with sodium pyruvate for mammalian cell culture.",
+    "image": "images/dmem-high-glucose.svg",
+    "tags": ["Research", "Cell Culture"]
+  },
+  {
+    "name": "Protein A/G Agarose",
+    "slug": "protein-ag-agarose",
+    "sku": "LAB-CHR-014",
+    "price": 95,
+    "status": "published",
+    "shortDescription": "Affinity resin supporting 12 purification cycles with high binding capacity.",
+    "image": "images/protein-ag-agarose.svg",
+    "tags": ["Research", "Chromatography"]
+  },
+  {
+    "name": "Human Epidermal Keratinocytes",
+    "slug": "human-epidermal-keratinocytes",
+    "sku": "LAB-CEL-015",
+    "price": 450,
+    "status": "published",
+    "shortDescription": "Cryopreserved primary keratinocytes with dual-stage QC and high viability.",
+    "image": "images/human-epidermal-keratinocytes.svg",
+    "tags": ["Research", "Cell Culture"]
+  },
+  {
+    "name": "CRISPR-Cas9 Kit",
+    "slug": "crispr-cas9-kit",
+    "sku": "LAB-GEN-016",
+    "price": 620,
+    "status": "published",
+    "shortDescription": "Complete genome editing toolkit with gRNA design software and plasmids.",
+    "image": "images/crispr-cas9-kit.svg",
+    "tags": ["Research", "Genome Editing"]
+  },
+  {
+    "name": "Human EGF",
+    "slug": "human-egf",
+    "sku": "LAB-GRF-017",
+    "price": 180,
+    "status": "published",
+    "shortDescription": "Recombinant human EGF produced under GMP conditions with >98% purity.",
+    "image": "images/human-egf.svg",
+    "tags": ["Research", "Growth Factor"]
+  }
+]

@@ -1,0 +1,23 @@
+<svg width="800" height="800" viewBox="0 0 800 800" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="800" height="800" rx="72" fill="url(#bg)"/>
+  <g filter="url(#shadow)">
+    <rect x="220" y="220" width="360" height="360" rx="48" fill="#FFFFFF"/>
+    <rect x="250" y="190" width="300" height="70" rx="24" fill="#1BA089"/>
+    <rect x="270" y="180" width="260" height="40" rx="18" fill="#0F8C74"/>
+    <rect x="260" y="260" width="280" height="220" rx="36" fill="#E7F7F3"/>
+    <rect x="290" y="310" width="220" height="120" rx="26" fill="#0F8C74" opacity="0.18"/>
+    <rect x="290" y="510" width="220" height="30" rx="15" fill="#0F8C74" opacity="0.3"/>
+  </g>
+  <text x="400" y="640" text-anchor="middle" font-family="'Inter', 'Helvetica Neue', Arial" font-size="40" fill="#0C3B4C" font-weight="600">Human IL-6</text>
+  <text x="400" y="684" text-anchor="middle" font-family="'Inter', 'Helvetica Neue', Arial" font-size="26" fill="#0F8C74">ELISA Kit</text>
+  <defs>
+    <linearGradient id="bg" x1="120" y1="80" x2="720" y2="720" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#DFF7F0"/>
+      <stop offset="0.5" stop-color="#B8EBD9"/>
+      <stop offset="1" stop-color="#63D0B4"/>
+    </linearGradient>
+    <filter id="shadow" x="160" y="120" width="440" height="520" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feDropShadow dx="0" dy="22" stdDeviation="26" flood-color="#0F4A54" flood-opacity="0.2"/>
+    </filter>
+  </defs>
+</svg>

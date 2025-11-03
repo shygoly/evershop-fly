@@ -1,0 +1,23 @@
+<svg width="800" height="800" viewBox="0 0 800 800" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="800" height="800" rx="72" fill="url(#bg)"/>
+  <g filter="url(#shadow)">
+    <rect x="250" y="160" width="300" height="440" rx="80" fill="#FFFFFF"/>
+    <rect x="270" y="120" width="260" height="100" rx="32" fill="#79D6B0"/>
+    <rect x="310" y="90" width="180" height="50" rx="24" fill="#5CBF9A"/>
+    <rect x="265" y="260" width="270" height="220" rx="48" fill="#E4F8F1"/>
+    <rect x="300" y="320" width="200" height="90" rx="26" fill="#79D6B0" opacity="0.2"/>
+    <rect x="300" y="540" width="200" height="40" rx="20" fill="#79D6B0" opacity="0.28"/>
+  </g>
+  <text x="400" y="640" text-anchor="middle" font-family="'Inter', 'Helvetica Neue', Arial" font-size="38" fill="#176148" font-weight="600">Bio-Active</text>
+  <text x="400" y="684" text-anchor="middle" font-family="'Inter', 'Helvetica Neue', Arial" font-size="26" fill="#2B8F6B">Laundry Detergent</text>
+  <defs>
+    <linearGradient id="bg" x1="120" y1="80" x2="720" y2="720" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#E6FFF4"/>
+      <stop offset="0.5" stop-color="#C0F5DF"/>
+      <stop offset="1" stop-color="#7BD8B4"/>
+    </linearGradient>
+    <filter id="shadow" x="200" y="80" width="400" height="600" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feDropShadow dx="0" dy="26" stdDeviation="28" flood-color="#176148" flood-opacity="0.2"/>
+    </filter>
+  </defs>
+</svg>

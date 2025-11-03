@@ -1,0 +1,22 @@
+<svg width="800" height="800" viewBox="0 0 800 800" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="800" height="800" rx="72" fill="url(#bg)"/>
+  <g filter="url(#shadow)">
+    <rect x="280" y="200" width="240" height="420" rx="60" fill="#FFFFFF"/>
+    <rect x="300" y="140" width="200" height="140" rx="40" fill="#6EC7FF"/>
+    <rect x="340" y="110" width="120" height="60" rx="24" fill="#3CAAE8"/>
+    <rect x="295" y="270" width="210" height="180" rx="34" fill="#E5F4FF"/>
+    <rect x="295" y="470" width="210" height="120" rx="34" fill="#F3F9FF"/>
+    <rect x="320" y="600" width="160" height="32" rx="16" fill="#6EC7FF" opacity="0.32"/>
+  </g>
+  <text x="400" y="660" text-anchor="middle" font-family="'Inter', 'Helvetica Neue', Arial" font-size="32" fill="#0C3B4C" font-weight="600">All-Purpose Surface Spray</text>
+  <defs>
+    <linearGradient id="bg" x1="120" y1="80" x2="720" y2="720" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#E8F7FF"/>
+      <stop offset="0.5" stop-color="#BEE7FF"/>
+      <stop offset="1" stop-color="#6EC7FF"/>
+    </linearGradient>
+    <filter id="shadow" x="220" y="80" width="360" height="600" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feDropShadow dx="0" dy="24" stdDeviation="26" flood-color="#0C3B4C" flood-opacity="0.18"/>
+    </filter>
+  </defs>
+</svg>

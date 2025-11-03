@@ -1,0 +1,23 @@
+<svg width="800" height="800" viewBox="0 0 800 800" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="800" height="800" rx="72" fill="url(#bg)"/>
+  <g filter="url(#shadow)">
+    <rect x="240" y="180" width="320" height="460" rx="60" fill="#F7FEFF"/>
+    <rect x="340" y="140" width="120" height="120" rx="28" fill="#67D4FF"/>
+    <rect x="360" y="120" width="80" height="40" rx="18" fill="#3CB7F3"/>
+    <rect x="270" y="260" width="260" height="220" rx="40" fill="#DFF6FF"/>
+    <path d="M280 360C320 335 360 330 400 360C440 390 480 385 520 360V430C520 462 493 488 458 488H322C287 488 260 462 260 430V360C265 365 272 366 280 360Z" fill="#67D4FF" opacity="0.25"/>
+    <rect x="300" y="540" width="200" height="36" rx="18" fill="#67D4FF" opacity="0.3"/>
+  </g>
+  <text x="400" y="640" text-anchor="middle" font-family="'Inter', 'Helvetica Neue', Arial" font-size="40" fill="#0C3B4C" font-weight="600">Hydro-Boosting</text>
+  <text x="400" y="684" text-anchor="middle" font-family="'Inter', 'Helvetica Neue', Arial" font-size="28" fill="#13749A">Cleanser</text>
+  <defs>
+    <linearGradient id="bg" x1="100" y1="100" x2="720" y2="720" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#0B5D7A"/>
+      <stop offset="0.45" stop-color="#1490B8"/>
+      <stop offset="1" stop-color="#7EE7FF"/>
+    </linearGradient>
+    <filter id="shadow" x="200" y="100" width="400" height="580" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feDropShadow dx="0" dy="22" stdDeviation="26" flood-color="#0C3B4C" flood-opacity="0.2"/>
+    </filter>
+  </defs>
+</svg>
