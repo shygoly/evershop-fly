@@ -24,7 +24,7 @@ WORKDIR /app
 ENV NODE_ENV=production
 
 RUN apt-get update && \
-    apt-get install -y --no-install-recommends ca-certificates python3 make g++ git && \
+    apt-get install -y --no-install-recommends ca-certificates python3 make g++ git postgresql-client && \
     update-ca-certificates && \
     rm -rf /var/lib/apt/lists/*
 

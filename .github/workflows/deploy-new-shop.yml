@@ -105,30 +105,16 @@ jobs:
           echo "APP_NAME=$APP" >> "$GITHUB_ENV"
           echo "App to use: $APP"
 
-      - name: Create Database Schema
-        env:
-          DB_HOST: ${{ secrets.DB_HOST }}
-          DB_PORT: ${{ secrets.DB_PORT }}
-          DB_USER: ${{ secrets.DB_USER }}
-          DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
-          DB_NAME: ${{ secrets.DB_NAME }}
-          APP_NAME: ${{ inputs.app_name }}
-        run: |
-          sudo apt-get update && sudo apt-get install -y postgresql-client
-          
-          # Sanitize Schema name: replace hyphens with underscores
-          DB_SCHEMA=$(echo "$APP_NAME" | tr '-' '_')
-          echo "DB_SCHEMA=$DB_SCHEMA" >> $GITHUB_ENV
-          
-          echo "Creating schema: $DB_SCHEMA in database $DB_NAME"
-          PGPASSWORD="$DB_PASSWORD" psql -h "$DB_HOST" -p "$DB_PORT" -U "$DB_USER" -d "$DB_NAME" -c "CREATE SCHEMA IF NOT EXISTS \"$DB_SCHEMA\";"
-
       - name: Configure secrets (DB/R2 shared, shop/admin customized)
         shell: bash
         run: |
           set -euo pipefail
           APP="$APP_NAME"
           if [ -z "$APP" ]; then APP='${{ inputs.app_name }}'; fi
+          
+          # Sanitize Schema name: replace hyphens with underscores
+          DB_SCHEMA=$(echo "$APP" | tr '-' '_')
+          
           NODE_CONFIG_JSON=$(printf '%s' '{"shop":{"name":"'"${{ inputs.shop_name }}"'"}}')
           # optional shared secrets
           add_secret() {
