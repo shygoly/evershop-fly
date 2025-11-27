@@ -105,22 +105,23 @@ jobs:
           echo "APP_NAME=$APP" >> "$GITHUB_ENV"
           echo "App to use: $APP"
 
-      - name: Create Database
+      - name: Create Database Schema
         env:
           DB_HOST: ${{ secrets.DB_HOST }}
           DB_PORT: ${{ secrets.DB_PORT }}
           DB_USER: ${{ secrets.DB_USER }}
           DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+          DB_NAME: ${{ secrets.DB_NAME }}
           APP_NAME: ${{ inputs.app_name }}
         run: |
           sudo apt-get update && sudo apt-get install -y postgresql-client
           
-          # Sanitize DB name: replace hyphens with underscores
-          DB_NAME=$(echo "$APP_NAME" | tr '-' '_')
-          echo "DB_NAME=$DB_NAME" >> $GITHUB_ENV
+          # Sanitize Schema name: replace hyphens with underscores
+          DB_SCHEMA=$(echo "$APP_NAME" | tr '-' '_')
+          echo "DB_SCHEMA=$DB_SCHEMA" >> $GITHUB_ENV
           
-          echo "Creating database: $DB_NAME"
-          PGPASSWORD="$DB_PASSWORD" psql -h "$DB_HOST" -p "$DB_PORT" -U "$DB_USER" -d postgres -c "CREATE DATABASE \"$DB_NAME\";" || echo "Database $DB_NAME might already exist"
+          echo "Creating schema: $DB_SCHEMA in database $DB_NAME"
+          PGPASSWORD="$DB_PASSWORD" psql -h "$DB_HOST" -p "$DB_PORT" -U "$DB_USER" -d "$DB_NAME" -c "CREATE SCHEMA IF NOT EXISTS \"$DB_SCHEMA\";"
 
       - name: Configure secrets (DB/R2 shared, shop/admin customized)
         shell: bash
@@ -148,9 +149,13 @@ jobs:
           add_secret "S3_FORCE_PATH_STYLE" "true"
           add_secret "DB_HOST" '${{ secrets.DB_HOST }}'
           add_secret "DB_PORT" '${{ secrets.DB_PORT }}'
-          add_secret "DB_NAME" "$DB_NAME"
+          add_secret "DB_NAME" '${{ secrets.DB_NAME }}'
           add_secret "DB_USER" '${{ secrets.DB_USER }}'
           add_secret "DB_PASSWORD" '${{ secrets.DB_PASSWORD }}'
+          add_secret "DB_SCHEMA" "$DB_SCHEMA"
+          add_secret "NODE_CONFIG" "$NODE_CONFIG_JSON"
+          add_secret "ADMIN_EMAIL" '${{ inputs.admin_email }}'
+          add_secret "ADMIN_PASSWORD" '${{ inputs.admin_password }}'
           add_secret "NODE_CONFIG" "$NODE_CONFIG_JSON"
           add_secret "ADMIN_EMAIL" '${{ inputs.admin_email }}'
           add_secret "ADMIN_PASSWORD" '${{ inputs.admin_password }}'
