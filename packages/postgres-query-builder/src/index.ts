@@ -841,7 +841,7 @@ class UpdateQuery extends Query {
         is_identity, 
         identity_generation 
       FROM information_schema.columns 
-      WHERE table_name = '${this._table}'`
+      WHERE table_name = '${this._table}' AND table_schema = current_schema()`
     );
     const set: string[] = [];
     rows.forEach((field: any) => {
@@ -932,7 +932,7 @@ class InsertQuery extends Query {
         is_identity, 
         identity_generation 
       FROM information_schema.columns 
-      WHERE table_name = '${this._table}'`
+      WHERE table_name = '${this._table}' AND table_schema = current_schema()`
     );
 
     const fs: string[] = [];
@@ -1029,7 +1029,7 @@ class InsertOnUpdateQuery extends Query {
         is_identity, 
         identity_generation 
       FROM information_schema.columns 
-      WHERE table_name = $1`,
+      WHERE table_name = $1 AND table_schema = current_schema()`,
       values: [this._table]
     });
 
