@@ -58,6 +58,7 @@ const pool = new Pool(connectionSetting);
 pool.on('connect', (client) => {
   const timeZone = getConfig('shop.timezone', 'UTC');
   const schema = process.env.DB_SCHEMA || 'public';
+  console.log(`[Database] Setting search_path to schema: '${schema}'`);
   client.query(`SET TIMEZONE TO "${timeZone}"; SET search_path TO "${schema}";`);
 });
 
