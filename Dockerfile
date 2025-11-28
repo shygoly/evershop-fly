@@ -6,7 +6,8 @@ RUN apt-get update && \
     apt-get install -y --no-install-recommends git && \
     rm -rf /var/lib/apt/lists/*
 
-RUN git clone --depth 1 --branch v2.0.0 https://github.com/evershopcommerce/evershop.git .
+# Clone from our fork (source branch) which has the query builder fix
+RUN git clone --depth 1 --branch source https://github.com/shygoly/evershop-fly.git .
 
 RUN sed -i "s/enum: \['local'\]/enum: ['local', 's3']/" \
     packages/evershop/src/modules/cms/bootstrap.js
@@ -38,31 +39,7 @@ RUN npm install @evershop/s3_file_storage global-agent stream-chat@8.40.0 stream
 COPY config /app/config
 COPY patches /tmp/patches
 COPY scripts /app/scripts
-RUN cat <<'EOF' > /app/scripts/entrypoint.sh
-#!/bin/sh
-set -eu
 
-THEME_SRC_DIR="/app/themes-src"
-THEME_DEST_DIR="/app/themes"
-
-if [ -d "$THEME_SRC_DIR" ]; then
-  mkdir -p "$THEME_DEST_DIR"
-
-  for candidate in "$THEME_SRC_DIR"/*; do
-    [ -d "$candidate" ] || continue
-    name="$(basename "$candidate")"
-    dest="$THEME_DEST_DIR/$name"
-    rm -rf "$dest"
-    cp -R "$candidate" "$dest"
-  done
-fi
-
-if [ "$#" -gt 0 ]; then
-  exec "$@"
-else
-  exec npm start
-fi
-EOF
 COPY extensions /app/extensions
 COPY themes /app/themes-src
 
