@@ -51,6 +51,22 @@
     border: 2px solid white;
   }
 
+  .auth-indicator {
+    position: absolute;
+    bottom: 2px;
+    right: 2px;
+    width: 14px;
+    height: 14px;
+    background: #10b981;
+    border: 2px solid white;
+    border-radius: 50%;
+    animation: authPulse 2s ease-in-out infinite;
+  }
+
+  &.authenticated {
+    background: #dc2626;
+  }
+
   @media (max-width: 768px) {
     bottom: 16px;
     right: 16px;
@@ -63,4 +79,14 @@
     }
   }
 }
+
+@keyframes authPulse {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
+  }
+  50% {
+    box-shadow: 0 0 0 4px rgba(16, 185, 129, 0);
+  }
+}
+
 

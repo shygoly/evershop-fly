@@ -111,7 +111,11 @@ RUN cp /tmp/patches/connection.js /app/node_modules/@evershop/evershop/dist/lib/
 # Set memory limit for Node.js build
 ENV NODE_OPTIONS="--max-old-space-size=6144"
 
-RUN chmod +x /app/scripts/entrypoint.sh
+# Make scripts executable
+RUN chmod +x /app/scripts/entrypoint.sh \
+    /app/scripts/sync-r2-config.sh \
+    /app/scripts/r2-download.mjs \
+    /app/scripts/r2-sync.mjs
 
 # Build the app with S3 extension integrated
 # The EverShop build step can repopulate legacy extensions; clean out the S3 copy after building.

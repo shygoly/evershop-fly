@@ -22,6 +22,11 @@ export default function NativeChatWidget({ setting, customer }) {
 
   // Get customer ID if logged in
   const customerId = customer?.customerId || customer?.uuid || undefined;
+  const customerEmail = customer?.email || undefined;
+  const customerName = customer?.fullName || undefined;
+  
+  // Determine user role based on customer presence
+  const userRole = customerId ? 'customer' : 'visitor';
 
   return (
     <Suspense fallback={null}>
@@ -29,6 +34,9 @@ export default function NativeChatWidget({ setting, customer }) {
         shopId={shopId}
         botId={setting.botId}
         customerId={customerId}
+        customerEmail={customerEmail}
+        customerName={customerName}
+        userRole={userRole}
       />
     </Suspense>
   );
@@ -43,7 +51,9 @@ NativeChatWidget.propTypes = {
   }),
   customer: PropTypes.shape({
     customerId: PropTypes.string,
-    uuid: PropTypes.string
+    uuid: PropTypes.string,
+    email: PropTypes.string,
+    fullName: PropTypes.string
   })
 };
 
@@ -63,7 +73,10 @@ export const query = `
     customer: currentCustomer {
       customerId
       uuid
+      email
+      fullName
     }
   }
 `;
+
 

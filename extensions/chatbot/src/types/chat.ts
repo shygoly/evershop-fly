@@ -2,6 +2,9 @@
  * Chat Widget Type Definitions
  */
 
+// User roles for permission control
+export type UserRole = 'visitor' | 'customer';
+
 export interface Message {
   id: string;
   role: 'user' | 'assistant';
@@ -35,12 +38,18 @@ export interface ChatWidgetProps {
   shopId: string;
   botId: string;
   customerId?: string;
+  customerEmail?: string;
+  customerName?: string;
+  userRole?: UserRole;
 }
 
 export interface UseChatbotOptions {
   shopId: string;
   botId: string;
   customerId?: string;
+  customerEmail?: string;
+  customerName?: string;
+  userRole?: UserRole;
 }
 
 export interface UseChatbotReturn {
@@ -68,4 +77,5 @@ export interface UseChatStorageReturn {
   getSessionId: () => string;
   clearHistory: () => void;
 }
+
 

@@ -1,0 +1,119 @@
+.admin-chat-panel {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 450px;
+  height: 650px;
+  z-index: 1000;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+  border-radius: 12px;
+  background: white;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+
+  &.loading,
+  &.error {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f5f5f5;
+  }
+
+  .loading-indicator {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    gap: 16px;
+
+    p {
+      color: #666;
+      font-size: 14px;
+      margin: 0;
+    }
+
+    .spinner {
+      display: inline-block;
+      width: 40px;
+      height: 40px;
+      border: 4px solid #f3f3f3;
+      border-top: 4px solid #3498db;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+  }
+
+  .error-message {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    gap: 12px;
+    padding: 20px;
+    text-align: center;
+
+    p {
+      color: #e74c3c;
+      font-size: 14px;
+      margin: 0;
+    }
+
+    button {
+      padding: 8px 16px;
+      background: #3498db;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 14px;
+
+      &:hover {
+        background: #2980b9;
+      }
+    }
+  }
+
+  /* 响应式设计 - 平板设备 */
+  @media (max-width: 1024px) {
+    width: 400px;
+    height: 600px;
+  }
+
+  /* 响应式设计 - 手机设备 */
+  @media (max-width: 768px) {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    bottom: 0;
+    right: 0;
+    border-radius: 0;
+    z-index: 9999;
+  }
+
+  /* 响应式设计 - 小手机 */
+  @media (max-width: 480px) {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* 确保聊天面板不被其他元素遮挡 */
+.admin-chat-panel {
+  /* 堆叠上下文 */
+  isolation: isolate;
+}

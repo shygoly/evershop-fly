@@ -1,0 +1,26 @@
+{
+  "chatbotNode": {
+    "url": "https://chatbot-node.fly.dev",
+    "shopId": "evershop-fly",
+    "ssoSecret": "your-sso-secret-here",
+    "webhookSecret": "your-webhook-secret-here"
+  },
+  "streamChat": {
+    "apiKey": "your-stream-api-key",
+    "apiSecret": "your-stream-api-secret",
+    "enabled": true
+  },
+  "coze": {
+    "baseUrl": "https://coze-api-proxy.sgl1226.workers.dev/",
+    "clientId": "1133483935040",
+    "enabled": true
+  },
+  "widget": {
+    "position": "bottom-right",
+    "theme": {
+      "primaryColor": "#dc2626",
+      "textColor": "#374151"
+    }
+  }
+}
+

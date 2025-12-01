@@ -1,0 +1,8 @@
+{
+  "methods": ["POST"],
+  "path": "/api/chatbot/stream",
+  "access": "public"
+}
+
+
+

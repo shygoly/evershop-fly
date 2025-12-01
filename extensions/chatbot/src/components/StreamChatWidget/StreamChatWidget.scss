@@ -1,0 +1,218 @@
+.stream-chat-widget {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 9999;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+}
+
+.stream-chat-toggle-button {
+  width: 60px;
+  height: 60px;
+  border-radius: 30px;
+  background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+  border: none;
+  color: white;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(220, 38, 38, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  position: relative;
+
+  &:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 16px rgba(220, 38, 38, 0.5);
+  }
+
+  &:active {
+    transform: scale(0.95);
+  }
+
+  svg {
+    width: 28px;
+    height: 28px;
+  }
+}
+
+.stream-chat-unread-badge {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  background: #ef4444;
+  color: white;
+  border-radius: 12px;
+  padding: 2px 8px;
+  font-size: 12px;
+  font-weight: 600;
+  min-width: 20px;
+  text-align: center;
+  border: 2px solid white;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.stream-chat-window {
+  position: fixed;
+  bottom: 90px;
+  right: 20px;
+  width: 380px;
+  height: 600px;
+  max-height: calc(100vh - 120px);
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  animation: slideUp 0.3s ease;
+
+  @media (max-width: 480px) {
+    width: calc(100vw - 40px);
+    height: calc(100vh - 120px);
+    bottom: 90px;
+    right: 20px;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Stream Chat customizations */
+.str-chat {
+  height: 100%;
+  
+  .str-chat__container {
+    height: 100%;
+  }
+
+  .str-chat__channel-header {
+    background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+    color: white;
+    padding: 16px;
+    border-radius: 16px 16px 0 0;
+
+    .str-chat__header-hamburger {
+      color: white;
+    }
+  }
+
+  .str-chat__main-panel {
+    height: calc(100% - 60px);
+  }
+
+  .str-chat__list {
+    padding: 16px;
+    background: #f9fafb;
+  }
+
+  .str-chat__message-simple {
+    &--me {
+      .str-chat__message-simple-text-inner {
+        background: #dc2626;
+        color: white;
+      }
+    }
+
+    &:not(.str-chat__message-simple--me) {
+      .str-chat__message-simple-text-inner {
+        background: white;
+        border: 1px solid #e5e7eb;
+      }
+    }
+  }
+
+  .str-chat__input-flat {
+    background: white;
+    border-top: 1px solid #e5e7eb;
+    padding: 12px;
+
+    textarea {
+      border: 1px solid #d1d5db;
+      border-radius: 8px;
+      padding: 8px 12px;
+      
+      &:focus {
+        border-color: #dc2626;
+        outline: none;
+      }
+    }
+  }
+
+  .str-chat__send-button {
+    background: #dc2626;
+    
+    &:hover {
+      background: #b91c1c;
+    }
+  }
+}
+
+/* Loading state */
+.stream-chat-loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  background: #f9fafb;
+
+  .spinner {
+    width: 40px;
+    height: 40px;
+    border: 4px solid #e5e7eb;
+    border-top-color: #dc2626;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+  }
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  .stream-chat-window {
+    background: #1f2937;
+  }
+
+  .str-chat {
+    .str-chat__list {
+      background: #111827;
+    }
+
+    .str-chat__message-simple:not(.str-chat__message-simple--me) {
+      .str-chat__message-simple-text-inner {
+        background: #374151;
+        color: #f9fafb;
+        border-color: #4b5563;
+      }
+    }
+
+    .str-chat__input-flat {
+      background: #1f2937;
+      border-top-color: #374151;
+
+      textarea {
+        background: #374151;
+        color: #f9fafb;
+        border-color: #4b5563;
+      }
+    }
+  }
+
+  .stream-chat-loading {
+    background: #111827;
+  }
+}
+

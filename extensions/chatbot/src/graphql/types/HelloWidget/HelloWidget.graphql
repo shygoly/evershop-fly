@@ -1,0 +1,11 @@
+"""
+A widget that displays a floating hello button
+"""
+type HelloWidget {
+  text: String
+  className: String
+}
+
+extend type Query {
+  helloWidget(settings: JSON): HelloWidget
+}

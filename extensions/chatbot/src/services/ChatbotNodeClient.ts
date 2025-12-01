@@ -238,13 +238,15 @@ export class ChatbotNodeClient {
    * @param onChunk - Callback for each response chunk
    * @param onComplete - Callback when response is complete
    * @param onError - Callback for errors
+   * @param userRole - User role for permission control
    */
   async sendChatMessage(
     message: string,
     userId: string,
     onChunk: (chunk: string) => void,
     onComplete: () => void,
-    onError: (error: Error) => void
+    onError: (error: Error) => void,
+    userRole: 'visitor' | 'customer' = 'visitor'
   ): Promise<void> {
     try {
       const token = this.generateJWT();
@@ -261,6 +263,7 @@ export class ChatbotNodeClient {
           shopId: this.shopId,
           message,
           userId,
+          userRole, // Include user role for permission control
         }),
       });
 
@@ -308,6 +311,13 @@ export class ChatbotNodeClient {
     } catch (error) {
       onError(error as Error);
     }
+  }
+
+  /**
+   * Get visitor permission prompt
+   */
+  getVisitorPrompt(): string {
+    return 'As a guest, I can help you with:\n• Product catalog and information\n• Promotions and discounts\n• Store policies (shipping, returns, etc.)\n\nFor order tracking, returns, and account management, please login to your account.';
   }
 
   /**

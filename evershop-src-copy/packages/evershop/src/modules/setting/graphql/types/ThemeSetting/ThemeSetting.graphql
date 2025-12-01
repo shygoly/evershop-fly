@@ -1,0 +1,12 @@
+type ThemeInfo {
+  name: String!
+  label: String
+}
+
+extend type Setting {
+  activeTheme: String
+}
+
+extend type Query {
+  themes: [ThemeInfo!]!
+}

@@ -8,7 +8,13 @@ export const ChatWidget: React.FC<ChatWidgetProps> = ({
   shopId,
   botId,
   customerId,
+  customerEmail,
+  customerName,
+  userRole,
 }) => {
+  // Determine effective user role
+  const effectiveUserRole = userRole || (customerId ? 'customer' : 'visitor');
+  
   const {
     isOpen,
     messages,
@@ -16,7 +22,14 @@ export const ChatWidget: React.FC<ChatWidgetProps> = ({
     isTyping,
     toggleChat,
     sendMessage,
-  } = useChatbot({ shopId, botId, customerId });
+  } = useChatbot({ 
+    shopId, 
+    botId, 
+    customerId,
+    customerEmail,
+    customerName,
+    userRole: effectiveUserRole,
+  });
 
   return (
     <>
@@ -24,6 +37,7 @@ export const ChatWidget: React.FC<ChatWidgetProps> = ({
         onClick={toggleChat}
         isOpen={isOpen}
         unreadCount={0}
+        userRole={effectiveUserRole}
       />
 
       {isOpen && (
@@ -33,9 +47,12 @@ export const ChatWidget: React.FC<ChatWidgetProps> = ({
           isTyping={isTyping}
           onClose={toggleChat}
           onSendMessage={sendMessage}
+          userRole={effectiveUserRole}
+          customerName={customerName}
         />
       )}
     </>
   );
 };
+
 

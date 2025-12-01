@@ -12,6 +12,7 @@ export const useChatbot = ({
   shopId,
   botId,
   customerId,
+  userRole,
 }: UseChatbotOptions): UseChatbotReturn => {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<Message[]>([]);
@@ -88,6 +89,9 @@ export const useChatbot = ({
         assistantMessageRef.current = '';
 
         // Use ChatbotNodeClient to send message with streaming
+        // Determine user role: customer if customerId exists, otherwise visitor
+        const effectiveUserRole = userRole || (customerId ? 'customer' : 'visitor');
+        
         await chatbotNodeClient.sendChatMessage(
           text.trim(),
           userId,
@@ -135,7 +139,9 @@ export const useChatbot = ({
                 msg.id === userMessageId ? { ...msg, status: 'error' } : msg
               )
             );
-          }
+          },
+          // userRole
+          effectiveUserRole
         );
       } catch (err) {
         console.error('Failed to send message:', err);
@@ -151,7 +157,7 @@ export const useChatbot = ({
         );
       }
     },
-    [isLoading, shopId, botId, customerId]
+    [isLoading, shopId, botId, customerId, userRole]
   );
 
   /**

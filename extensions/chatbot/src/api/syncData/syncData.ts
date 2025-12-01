@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { Request, Response } from 'express';
 import { ChatbotSettingService } from '../../services/ChatbotSettingService.js';
 import { chatbotNodeClient } from '../../services/ChatbotNodeClient.js';

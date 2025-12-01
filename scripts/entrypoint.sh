@@ -1,6 +1,17 @@
 #!/bin/sh
 set -eu
 
+# ============================================
+# R2 Configuration Sync
+# Sync custom themes, extensions, and config from Cloudflare R2
+# ============================================
+if [ -f /app/scripts/sync-r2-config.sh ]; then
+  echo "[entrypoint] Running R2 configuration sync..."
+  /bin/sh /app/scripts/sync-r2-config.sh || {
+    echo "[entrypoint] Warning: R2 sync failed, continuing with default configuration"
+  }
+fi
+
 # Schema Creation Logic
 if [ -n "${DB_SCHEMA:-}" ] && [ -n "${DATABASE_URL:-}" ]; then
   echo "Checking schema: ${DB_SCHEMA}"
