@@ -1,4 +1,5 @@
 {
-  "routeId": "adminChat",
-  "path": "/admin/chatbot/chat"
+  "methods": ["GET"],
+  "path": "/chatbot/chat",
+  "access": "private"
 }

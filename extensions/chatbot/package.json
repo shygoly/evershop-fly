@@ -5,7 +5,7 @@
   "type": "module",
   "main": "dist/bootstrap.js",
   "scripts": {
-    "build": "tsc && copyfiles -u 1 \"src/**/*.{graphql,scss,json}\" dist",
+    "build": "tsc && copyfiles -u 1 \"src/**/*.{graphql,scss,json}\" dist && copyfiles -u 1 \"migration/**/*.js\" dist/migration",
     "test": "jest",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
@@ -28,6 +28,7 @@
   "dependencies": {
     "axios": "^1.7.7",
     "jsonwebtoken": "^9.0.2",
+    "socket.io-client": "^4.8.1",
     "stream-chat": "^8.40.0",
     "stream-chat-react": "^11.22.0"
   },

@@ -1,6 +1,6 @@
 {
   "methods": ["GET"],
-  "path": "*",
+  "path": "/*",
   "access": "public"
 }
 

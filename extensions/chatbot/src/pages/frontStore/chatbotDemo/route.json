@@ -1,5 +1,6 @@
 {
-  "method": "GET",
-  "path": "/chatbot-demo"
+  "methods": ["GET"],
+  "path": "/chatbot-demo",
+  "access": "public"
 }
 
