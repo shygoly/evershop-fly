@@ -1,4 +1,4 @@
-import { existsSync } from 'fs';
+import { existsSync, readdirSync, readFileSync } from 'fs';
 import { resolve } from 'path';
 import { CONSTANTS } from '../../lib/helpers.js';
 import { error, warning } from '../../lib/log/logger.js';
@@ -73,6 +73,53 @@ function loadExtensions(): Extension[] {
       }
     }
   });
+
+  // Auto-discover extensions from extensions/ directory
+  const extensionsDir = resolve(CONSTANTS.ROOTPATH, 'extensions');
+  if (existsSync(extensionsDir)) {
+    try {
+      const dirs = readdirSync(extensionsDir, { withFileTypes: true });
+      dirs.forEach((dir) => {
+        if (!dir.isDirectory()) return;
+
+        const extensionName = dir.name;
+        // Skip if already configured
+        if (extensions.find((e) => e.name === extensionName)) {
+          return;
+        }
+
+        const extensionPath = resolve(extensionsDir, extensionName);
+        const distPath = resolve(extensionPath, 'dist');
+        const packageJsonPath = resolve(extensionPath, 'package.json');
+
+        // Check if dist directory exists (required for auto-discovered extensions)
+        if (!existsSync(distPath)) {
+          return;
+        }
+
+        // Try to read package.json for metadata
+        let packageJson: any = { name: extensionName };
+        if (existsSync(packageJsonPath)) {
+          try {
+            packageJson = JSON.parse(readFileSync(packageJsonPath, 'utf-8'));
+          } catch (e) {
+            // If package.json is invalid, use default name
+            packageJson = { name: extensionName };
+          }
+        }
+
+        // Auto-register the discovered extension with default priority
+        extensions.push({
+          name: extensionName,
+          path: distPath,
+          priority: 50, // Default priority for auto-discovered extensions
+          enabled: true
+        } as Extension);
+      });
+    } catch (e) {
+      // Silently ignore if extensions directory doesn't exist or can't be read
+    }
+  }
 
   // Sort the extensions by priority, smaller number means higher priority
   extensions.sort((a, b) => a.priority - b.priority);
