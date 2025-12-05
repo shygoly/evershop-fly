@@ -20,9 +20,10 @@ on:
         required: true
         type: string
       image:
-        description: "Optional Docker image to deploy (e.g. docker.io/<user>/evershop-fly:latest). If set, build is skipped and this image is used."
+        description: "Docker image to deploy (default: registry.fly.io/evershop-fly:deployment-01KB443273PJVSTHG1X6DJ4GE1). If empty, will use default. If set, build is skipped and this image is used."
         required: false
         type: string
+        default: "registry.fly.io/evershop-fly:deployment-01KB443273PJVSTHG1X6DJ4GE1"
       org_slug:
         description: "Fly organization slug to create the app under (overrides FLY_ORG_SLUG secret)."
         required: false
@@ -43,7 +44,11 @@ jobs:
         uses: superfly/flyctl-actions/setup-flyctl@master
 
       - name: Setup Wrangler CLI
-        run: npm install -g wrangler
+        run: |
+          npm config set fetch-timeout 120000
+          npm config set fetch-retry-mintimeout 20000
+          npm config set fetch-retry-maxtimeout 120000
+          npm install -g wrangler
 
       - name: Verify R2 bucket exists
         env:
@@ -109,8 +114,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          APP="$APP_NAME"
-          if [ -z "$APP" ]; then APP='${{ inputs.app_name }}'; fi
+          APP="${APP_NAME:-${{ inputs.app_name }}}"
           
           # Sanitize Schema name: replace hyphens with underscores
           DB_SCHEMA=$(echo "$APP" | tr '-' '_')
@@ -142,9 +146,6 @@ jobs:
           add_secret "NODE_CONFIG" "$NODE_CONFIG_JSON"
           add_secret "ADMIN_EMAIL" '${{ inputs.admin_email }}'
           add_secret "ADMIN_PASSWORD" '${{ inputs.admin_password }}'
-          add_secret "NODE_CONFIG" "$NODE_CONFIG_JSON"
-          add_secret "ADMIN_EMAIL" '${{ inputs.admin_email }}'
-          add_secret "ADMIN_PASSWORD" '${{ inputs.admin_password }}'
 
           if [ ${#SET_ARGS[@]} -gt 0 ]; then
             flyctl secrets set "${SET_ARGS[@]}" -a "$APP"
@@ -154,23 +155,21 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          APP="$APP_NAME"
-          if [ -z "$APP" ]; then APP='${{ inputs.app_name }}'; fi
+          APP="${APP_NAME:-${{ inputs.app_name }}}"
           IMG="${{ inputs.image }}"
-          if [ -n "$IMG" ]; then
-            echo "Using prebuilt image: $IMG"
-            flyctl deploy -a "$APP" -i "$IMG"
-          else
-            echo "No image provided, building with remote builder"
-            flyctl deploy -a "$APP" --remote-only
+          # Use provided image or fallback to default
+          if [ -z "$IMG" ]; then
+            IMG="registry.fly.io/evershop-fly:deployment-01KB443273PJVSTHG1X6DJ4GE1"
           fi
+          echo "Deploying with image: $IMG"
+          flyctl deploy -a "$APP" -i "$IMG"
 
       - name: Dump Fly logs on failure
         if: ${{ failure() }}
         shell: bash
         run: |
           set -euo pipefail
-          APP="$APP_NAME"; if [ -z "$APP" ]; then APP='${{ inputs.app_name }}'; fi
+          APP="${APP_NAME:-${{ inputs.app_name }}}"
           echo "--- Machines list ($APP) ---"
           flyctl machines list -a "$APP" || true
           MID=$(flyctl machines list -a "$APP" --json | node -e '
@@ -187,7 +186,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          APP="$APP_NAME"; if [ -z "$APP" ]; then APP='${{ inputs.app_name }}'; fi
+          APP="${APP_NAME:-${{ inputs.app_name }}}"
           
           # Sanitize Schema name: replace hyphens with underscores
           DB_SCHEMA=$(echo "$APP" | tr '-' '_')
@@ -198,6 +197,6 @@ jobs:
 
       - name: Output
         run: |
-          APP="$APP_NAME"; if [ -z "$APP" ]; then APP='${{ inputs.app_name }}'; fi
+          APP="${APP_NAME:-${{ inputs.app_name }}}"
           echo "App: $APP deployed."
           echo "Visit: https://$APP.fly.dev"
